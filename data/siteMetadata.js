@@ -2,10 +2,10 @@
 
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: 'TailwindBlog',
-  description: 'A blog created with Next.js and Tailwind.css',
+  title: '孔雀东南飞',
+  author: '李文凯',
+  headerTitle: "WenKai's Blog",
+  description: '分享自己的所学和所爱，记录成长的点点滴滴。',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://creative-macaron-51dd6e.netlify.app',
@@ -13,11 +13,11 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'address@yoursite.com',
-  github: 'https://github.com',
-  twitter: 'https://twitter.com/Twitter',
+  email: '2020583117@qq.com',
+  github: 'https://github.com/liwenka1',
+  twitter: 'https://twitter.com/liwenka1',
   facebook: 'https://facebook.com',
-  youtube: 'https://youtube.com',
+  youtube: 'https://youtube.com/@liwenka1',
   linkedin: 'https://www.linkedin.com',
   locale: 'en-US',
   analytics: {
