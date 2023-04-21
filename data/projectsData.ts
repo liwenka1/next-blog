@@ -1,19 +1,27 @@
 const projectsData = [
   {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    imgSrc: '/static/images/google.png',
-    href: 'https://www.google.com',
+    title: 'vitepress-website',
+    description: `利用vitepress搭建的一个静态的前端导航学习网站`,
+    imgSrc: '/static/images/vitepress-website.png',
+    href: 'https://liwenka2.netlify.app',
   },
   {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/the-time-machine',
+    title: 'hexo-blog',
+    description: `利用Hexo搭建的一个静态的博客`,
+    imgSrc: '/static/images/hexo-blog.png',
+    href: 'https://liwenka1.netlify.app',
+  },
+  {
+    title: 'doublek-ui',
+    description: `一个基于 Vue 3的未来可期的UI组件库`,
+    imgSrc: '/static/images/doublek-ui.png',
+    href: 'https://doublek-ui.netlify.app',
+  },
+  {
+    title: 'element-plus-vite-music',
+    description: `通过vite + vue + pinia + typescript技术所构建的web端音乐播放器，十分的适合初学vue3的玩家来进行练手`,
+    imgSrc: '/static/images/element-plus-vite-music.png',
+    href: 'https://github.com/liwenka1/element-plus-vite-music',
   },
 ]
 

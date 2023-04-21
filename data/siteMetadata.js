@@ -5,7 +5,7 @@ const siteMetadata = {
   title: '孔雀东南飞',
   author: '李文凯',
   headerTitle: "WenKai's Blog",
-  description: '分享自己的所学和所爱，记录成长的点点滴滴。',
+  description: '分享知识，记录成长',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://creative-macaron-51dd6e.netlify.app',
