@@ -20,6 +20,7 @@ const siteMetadata = {
   youtube: 'https://youtube.com/@liwenka1',
   linkedin: 'https://www.linkedin.com',
   locale: 'en-US',
+  welcome: 'Tough times never last,But tough people do',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.

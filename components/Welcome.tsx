@@ -1,20 +1,32 @@
-import Image from './Image'
+import React, { ReactElement, useEffect, useRef } from 'react'
+import { renderCanvas } from './renderCanvas'
 
-const Welcome = () => {
+interface Props {
+  welcome: string
+}
+
+export default function Welcome({ welcome }: Props): ReactElement {
+  const ref = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    renderCanvas()
+    ref.current?.classList.add('transition-in')
+  }, [])
   return (
     <div>
-      <Image
-        className="inline-block"
-        src="/static/images/welcome.jpg"
-        alt="123"
-        width={544}
-        height={306}
-      />
-      <div className="ml-10 inline-block">
-        <p>欢迎来到我的个人网站</p>
+      <canvas className="bg-skin-base pointer-events-none absolute inset-0" id="canvas"></canvas>
+      <div className="relative z-10 flex h-[calc(100vh_-_135px)] items-center justify-center">
+        <div ref={ref} className="px-4 text-3xl md:text-4xl">
+          {welcome.split('').map((latter, index) => (
+            <span
+              style={{ transitionDelay: 0.2 * (index + 1) + 's' }}
+              className="opacity-1 transition-opacity"
+              key={index}
+            >
+              {latter}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   )
 }
-
-export default Welcome
