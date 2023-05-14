@@ -206,3 +206,257 @@ var minOperations = function (nums, x) {
 ```
 
 ---
+
+### 两数之和 三数之和
+
+---
+
+[167. 两数之和 II - 输入有序数组](https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (numbers, target) {
+  let left = 0
+  let right = numbers.length - 1
+  while (left < right) {
+    let sum = numbers[left] + numbers[right]
+    if (sum > target) right--
+    else if (sum < target) left++
+    else return [left + 1, right + 1]
+  }
+}
+```
+
+[15. 三数之和](https://leetcode.cn/problems/3sum/)
+
+```js
+// 时间复杂度O(n^2)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  let ans = []
+  for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue
+    if (nums[i] + nums[i + 1] + nums[i + 2] > 0) break
+    if (nums[n] + nums[n - 1] + nums[n - 2] < 0) continue
+    let left = i + 1
+    let right = n - 1
+    while (left < right) {
+      let sum = nums[i] + nums[left] + nums[right]
+      if (sum > 0) {
+        right--
+      } else if (sum < 0) {
+        left++
+      } else {
+        ans.push([nums[i], nums[left], nums[right]])
+        right--
+        while (nums[right] == nums[right + 1]) right--
+        left++
+        while (nums[left] == nums[left - 1]) left++
+      }
+    }
+  }
+  return ans
+}
+```
+
+[16. 最接近的三数之和](https://leetcode.cn/problems/3sum-closest/)
+
+```js
+// 时间复杂度O(n^2)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function (nums, target) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  let ans1 = Infinity
+  let ans2 = Infinity
+  for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue
+    let left = i + 1
+    let right = n - 1
+    while (left < right) {
+      let sum = nums[i] + nums[left] + nums[right] - target
+      if (sum > 0) {
+        right--
+        ans1 = Math.min(ans1, sum)
+      } else if (sum < 0) {
+        left++
+        ans2 = Math.min(ans2, -sum)
+      } else {
+        return target
+      }
+    }
+  }
+  return ans1 > ans2 ? -ans2 + target : ans1 + target
+}
+```
+
+[18. 四数之和](https://leetcode.cn/problems/4sum/)
+
+```js
+// 时间复杂度O(n^3)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+var fourSum = function (nums, target) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  if (n < 4) return []
+  let ans = []
+  for (let j = 0; j < n - 3; j++) {
+    if (j > 0 && nums[j] == nums[j - 1]) continue
+    if (nums[j] + nums[j + 1] + nums[j + 2] + nums[j + 3] > target) break
+    if (nums[j] + nums[n - 1] + nums[n - 2] + nums[n - 3] < target) continue
+    for (let i = j + 1; i < n - 2; i++) {
+      if (i > j + 1 && nums[i] == nums[i - 1]) continue
+      if (nums[j] + nums[i] + nums[i + 1] + nums[i + 2] > target) break
+      if (nums[j] + nums[i] + nums[n - 1] + nums[n - 2] < target) continue
+      let left = i + 1
+      let right = n - 1
+      while (left < right) {
+        let sum = nums[j] + nums[i] + nums[left] + nums[right]
+        if (sum > target) {
+          right--
+        } else if (sum < target) {
+          left++
+        } else {
+          ans.push([nums[j], nums[i], nums[left], nums[right]])
+          right--
+          while (nums[right] == nums[right + 1]) right--
+          left++
+          while (nums[left] == nums[left - 1]) left++
+        }
+      }
+    }
+  }
+  return ans
+}
+```
+
+[611. 有效三角形的个数](https://leetcode.cn/problems/valid-triangle-number/)
+
+```js
+// 时间复杂度O(n^2)
+// 空间复杂度O(logn)
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var triangleNumber = function (nums) {
+  nums.sort((a, b) => a - b)
+  let ans = 0
+  let n = nums.length
+  for (let i = 0; i < n; i++) {
+    let k = i
+    for (let j = i + 1; j < n - 1; j++) {
+      while (k + 1 < n && nums[k + 1] < nums[i] + nums[j]) {
+        k++
+      }
+      if (k > j) ans += k - j
+    }
+  }
+  return ans
+}
+```
+
+---
+
+### 盛最多水的容器 接雨水
+
+[11. 盛最多水的容器](https://leetcode.cn/problems/container-with-most-water/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function (height) {
+  let ans = 0
+  let left = 0
+  let right = height.length - 1
+  while (left < right) {
+    let area = Math.min(height[left], height[right]) * (right - left)
+    ans = Math.max(ans, area)
+    if (height[left] < height[right]) left++
+    else right--
+  }
+  return ans
+}
+```
+
+[42. 接雨水](https://leetcode.cn/problems/trapping-rain-water/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+  let n = height.length
+  let pre_max = new Array(n).fill(0)
+  pre_max[0] = height[0]
+  for (let i = 1; i < n; i++) {
+    pre_max[i] = Math.max(pre_max[i - 1], height[i])
+  }
+  let suf_max = new Array(n).fill(0)
+  suf_max[n - 1] = height[n - 1]
+  for (let i = n - 2; i >= 0; i--) {
+    suf_max[i] = Math.max(suf_max[i + 1], height[i])
+  }
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    ans += Math.min(pre_max[i], suf_max[i]) - height[i]
+  }
+  return ans
+}
+
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+  let n = height.length
+  let ans = 0
+  let left = 0
+  let right = n - 1
+  let pre_max = 0
+  let suf_max = 0
+  while (left < right) {
+    pre_max = Math.max(pre_max, height[left])
+    suf_max = Math.max(suf_max, height[right])
+    if (pre_max < suf_max) {
+      ans += pre_max - height[left]
+      left++
+    } else {
+      ans += suf_max - height[right]
+      right--
+    }
+  }
+  return ans
+}
+```
