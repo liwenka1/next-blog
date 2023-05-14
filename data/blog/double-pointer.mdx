@@ -10,48 +10,199 @@ bibliography: references-data.bib
 
 ## 双指针
 
+---
+
 ### 同向双指针 滑动窗口
 
----
 [209. 长度最小的子数组](https://leetcode.cn/problems/minimum-size-subarray-sum/)
-```
+
+```js
 /**
+// 时间复杂度O(n)
+// 空间复杂度O(1)
  * @param {number} target
  * @param {number[]} nums
  * @return {number}
  */
 var minSubArrayLen = function (target, nums) {
-    let n = nums.length
-    let left = 0
-    let ans = n + 1
-    let sum = 0
-    for (let right = 0; right < n; right++) {
-        sum += nums[right]
-        while (sum - nums[left] >= target) {
-            sum -= nums[left]
-            left++
-        }
-        if (sum >= target) {
-            ans = Math.min(ans, right - left + 1)
-        }
+  let n = nums.length
+  let left = 0
+  let ans = n + 1
+  let sum = 0
+  for (let right = 0; right < n; right++) {
+    sum += nums[right]
+    while (sum - nums[left] >= target) {
+      sum -= nums[left]
+      left++
     }
-    return ans <= n ? ans : 0
-};
+    if (sum >= target) {
+      ans = Math.min(ans, right - left + 1)
+    }
+  }
+  return ans <= n ? ans : 0
+}
 
 var minSubArrayLen = function (target, nums) {
-    let n = nums.length
-    let left = 0
-    let ans = n + 1
-    let sum = 0
-    for (let right = 0; right < n; right++) {
-        sum += nums[right]
-        while (sum >= target) {
-            ans = Math.min(ans, right - left + 1)
-            sum -= nums[left]
-            left++
-        }
+  let n = nums.length
+  let left = 0
+  let ans = n + 1
+  let sum = 0
+  for (let right = 0; right < n; right++) {
+    sum += nums[right]
+    while (sum >= target) {
+      ans = Math.min(ans, right - left + 1)
+      sum -= nums[left]
+      left++
     }
-    return ans <= n ? ans : 0
-};
+  }
+  return ans <= n ? ans : 0
+}
 ```
+
+[713. 乘积小于 K 的子数组](https://leetcode.cn/problems/subarray-product-less-than-k/)
+
+```js
+/**
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var numSubarrayProductLessThanK = function (nums, k) {
+  if (k <= 1) return 0
+  let left = 0
+  let prod = 1
+  let n = nums.length
+  let ans = 0
+  for (let right = 0; right < n; right++) {
+    prod *= nums[right]
+    while (prod >= k) {
+      prod /= nums[left]
+      left++
+    }
+    ans += right - left + 1
+  }
+  return ans
+}
+```
+
+[3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+  let ans = 0
+  let cnt = {}
+  let left = 0
+  for (let right = 0; right < s.length; right++) {
+    cnt[s[right]] ? cnt[s[right]]++ : (cnt[s[right]] = 1)
+    while (cnt[s[right]] > 1) {
+      cnt[s[left]]--
+      left++
+    }
+    ans = Math.max(ans, right - left + 1)
+  }
+  return ans
+}
+```
+
+[1004. 最大连续 1 的个数 III](https://leetcode.cn/problems/max-consecutive-ones-iii/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var longestOnes = function (nums, k) {
+  let left = 0
+  let ans = 0
+  let sum = 0
+  let n = nums.length
+  for (let right = 0; right < n; right++) {
+    sum += 1 - nums[right]
+    while (sum > k) {
+      sum -= 1 - nums[left]
+      left++
+    }
+    ans = Math.max(ans, right - left + 1)
+  }
+  return ans
+}
+```
+
+[1234. 替换子串得到平衡字符串](https://leetcode.cn/problems/replace-the-substring-for-balanced-string/)
+
+```js
+// 时间复杂度O(nC),其中n为s的长度，C=4
+// 空间复杂度O(C)
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var balancedString = function (s) {
+  let map = {
+    Q: 0,
+    W: 0,
+    E: 0,
+    R: 0,
+  }
+  for (let i = 0; i < s.length; i++) {
+    map[s[i]]++
+  }
+  let n = s.length
+  let m = n / 4
+  if (map['Q'] == m && map['W'] == m && map['E'] == m && map['R'] == m) return 0
+  let left = 0
+  let ans = n
+  for (let right = 0; right < n; right++) {
+    map[s[right]]--
+    while (map['Q'] <= m && map['W'] <= m && map['E'] <= m && map['R'] <= m) {
+      ans = Math.min(ans, right - left + 1)
+      map[s[left]]++
+      left++
+    }
+  }
+  return ans
+}
+```
+
+[1658. 将 x 减到 0 的最小操作数](https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var minOperations = function (nums, x) {
+  let target = -x
+  for (let num of nums) target += num
+  if (target < 0) return -1
+  let left = 0
+  let ans = -1
+  let sum = 0
+  let n = nums.length
+  for (let right = 0; right < n; right++) {
+    sum += nums[right]
+    while (sum > target) {
+      sum -= nums[left]
+      left++
+    }
+    if (sum == target) ans = Math.max(ans, right - left + 1)
+  }
+  return ans < 0 ? -1 : n - ans
+}
+```
+
 ---

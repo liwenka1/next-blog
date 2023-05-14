@@ -9,20 +9,25 @@ bibliography: references-data.bib
 ---
 
 ### 需求说明
+
 ---
+
 最近工作中遇到了一个数组去重相关的问题，大概场景是这样的
 
 ---
-有两个数组为 arrOen为oldlList:['1', '2', '3', '4', '5']中随机项，arrTwo为oldlList中随机项加'_'再加随机数字
+
+有两个数组为 arrOen 为 oldlList:['1', '2', '3', '4', '5']中随机项，arrTwo 为 oldlList 中随机项加'\_'再加随机数字
 例如
+
 ```
 list:['1', '2', '3', '4', '5']
 arrOen:['1','3']
 arrTwo:['5_2323','3_98','1_234','2_123','1_23','3_123','4_12','4_124']
 ```
 
-需求为将arrTwo中的每一项的第一个字符不存在于arrOne的元素从arrTwo中删除
+需求为将 arrTwo 中的每一项的第一个字符不存在于 arrOne 的元素从 arrTwo 中删除
 例如上例结果为
+
 ```
 arrTwo:['1_234','1_23','3_123']
 ```
@@ -30,42 +35,50 @@ arrTwo:['1_234','1_23','3_123']
 ---
 
 ### 功能实现
----
-第一步，将arrOne同目标list进行对比取反，即得到newArrOne:['2','4','5']
 
-第二步，对得到的newArrOne进行遍历，内部则对arrTwo进行while循环处理，找出arrTwo中的第一个字符存在于arrOne的元素，将此元素删除
+---
+
+第一步，将 arrOne 同目标 list 进行对比取反，即得到 newArrOne:['2','4','5']
+
+第二步，对得到的 newArrOne 进行遍历，内部则对 arrTwo 进行 while 循环处理，找出 arrTwo 中的第一个字符存在于 arrOne 的元素，将此元素删除
 
 ---
 
 ### 代码展示
+
 ---
-```
-let list = ["1", "2", "3", "4", "5"];
-let arrOen = ["1", "3"];
-let arrTwo = ['5_2323','3_98','1_234','2_123','1_23','3_123','4_12','4_124']
-let newArrOne = [];
+
+```js
+let list = ['1', '2', '3', '4', '5']
+let arrOen = ['1', '3']
+let arrTwo = ['5_2323', '3_98', '1_234', '2_123', '1_23', '3_123', '4_12', '4_124']
+let newArrOne = []
 list.forEach((a) => {
-  let c = arrOen.findIndex((b) => a === b);
-  if (c > -1) delete arrOen[c];
-  else newArrOne.push(a);
-});
+  let c = arrOen.findIndex((b) => a === b)
+  if (c > -1) delete arrOen[c]
+  else newArrOne.push(a)
+})
 newArrOne.forEach((item) => {
-  let i = arrTwo.length;
+  let i = arrTwo.length
   while (i--) {
-    const ele = arrTwo[i];
+    const ele = arrTwo[i]
     if (item === ele.slice(0, 1)) {
-      let index = arrTwo.indexOf(ele);
-      arrTwo.splice(index, 1);
+      let index = arrTwo.indexOf(ele)
+      arrTwo.splice(index, 1)
     }
   }
-});
-console.log(arrTwo);
+})
+console.log(arrTwo)
 ```
+
 ---
 
 ### 代码分析
+
 ---
+
 #### findIndex()方法
+
 ```
 定义和用法
 findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。
@@ -78,21 +91,23 @@ findIndex() 方法为数组中的每个元素都调用一次函数执行：
 
 注意: findIndex() 并没有改变数组的原始值。
 ```
-```
+
+```js
 获取数组中年龄大于等于 18 的第一个元素索引位置
 var ages = [3, 10, 18, 20];
- 
+
 function checkAdult(age) {
     return age >= 18;
 }
- 
+
 function myFunction() {
     document.getElementById("demo").innerHTML = ages.findIndex(checkAdult);
 }
 fruits 输出结果：
 2
 ```
-```
+
+```js
 因此我们利用findIndex()来对arrOne取反
 list.forEach((a) => {
   let c = arrOen.findIndex((b) => a === b);
@@ -100,8 +115,10 @@ list.forEach((a) => {
   else newArrOne.push(a);
 });
 ```
-#### while循环
-```
+
+#### while 循环
+
+```js
 利用while循环主要解决JS遍历数组，删除数组元素时，怎么删都会漏掉一个的问题
 例如
 var arr = [1, 2, 2, 3, 4, 5];
@@ -127,7 +144,7 @@ newArrOne.forEach((item) => {
 });
 ```
 
-```
+```js
 其他解决方法
 方法1：实时调整数组中元素的下标对应关系
 var arr = [1, 2, 2, 3, 4, 5];

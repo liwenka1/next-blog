@@ -11,11 +11,12 @@ bibliography: references-data.bib
 ### 题目及示例
 
 ---
+
 给你一个整数 n ，以二进制字符串的形式返回该整数的 负二进制（base -2）表示。
 
-注意，除非字符串就是 "0"，否则返回的字符串中不能含有前导零。
+注意，除非字符串就是  "0"，否则返回的字符串中不能含有前导零。
 
- 
+
 
 示例 1：
 
@@ -32,17 +33,21 @@ bibliography: references-data.bib
 输入：n = 4
 输出："100"
 解释：(-2)2 = 4
- 
+
+
 
 提示：
 
 0 < = n < = 109
 
 ---
+
 ### 解题思路
+
 ---
+
 和转换二进制思路基本一致
-但是值得注意的是，同 -2 取余数会有-1，0，1三种结果
+但是值得注意的是，同 -2 取余数会有-1，0，1 三种结果
 因此取余数的绝对值进行相加即可
 余数为 0 时，直接将 n 除以 -2
 余数不为 0 时，则将 n 减去余数的绝对值即 1 除以 -2
@@ -51,17 +56,18 @@ bibliography: references-data.bib
 ---
 
 ### 代码展示
-```
+
+```js
 var baseNeg2 = function (n) {
-    if (n == 0 || n == 1) {
-        return '' + n
-    }
-    let res = ''
-    while (n) {
-        let ans = n % (-2)
-        n = ans == 0 ? n / (-2) : (n - 1) / (-2)
-        res += Math.abs(ans)
-    }
-    return res.split('').reverse().join('')
+  if (n == 0 || n == 1) {
+    return '' + n
+  }
+  let res = ''
+  while (n) {
+    let ans = n % -2
+    n = ans == 0 ? n / -2 : (n - 1) / -2
+    res += Math.abs(ans)
+  }
+  return res.split('').reverse().join('')
 }
 ```
