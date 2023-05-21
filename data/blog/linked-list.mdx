@@ -7,3 +7,125 @@ summary: '基础算法-链表:1.反转链表2.环形链表3.删除链表重复�
 layout: PostSimple
 bibliography: references-data.bib
 ---
+
+## 链表
+
+---
+
+### 反转链表
+
+---
+
+[206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+  let pre = null
+  let cur = head
+  while (cur) {
+    let nxt = cur.next
+    cur.next = pre
+    pre = cur
+    cur = nxt
+  }
+  return pre
+}
+```
+
+[92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} left
+ * @param {number} right
+ * @return {ListNode}
+ */
+var reverseBetween = function (head, left, right) {
+  let dummy = new ListNode()
+  dummy.next = head
+  let p0 = dummy
+  for (let i = 0; i < left - 1; i++) {
+    p0 = p0.next
+  }
+  let pre = null
+  let cur = p0.next
+  for (let i = 0; i < right - left + 1; i++) {
+    let nxt = cur.next
+    cur.next = pre
+    pre = cur
+    cur = nxt
+  }
+  p0.next.next = cur
+  p0.next = pre
+  return dummy.next
+}
+```
+
+[25. K 个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var reverseKGroup = function (head, k) {
+  let n = 0
+  let cur = head
+  while (cur) {
+    n++
+    cur = cur.next
+  }
+  let dummy = new ListNode()
+  dummy.next = head
+  let p0 = dummy
+  let pre = null
+  cur = p0.next
+  while (n >= k) {
+    n -= k
+    for (let i = 0; i < k; i++) {
+      let nxt = cur.next
+      cur.next = pre
+      pre = cur
+      cur = nxt
+    }
+    let nxt = p0.next
+    p0.next.next = cur
+    p0.next = pre
+    p0 = nxt
+  }
+  return dummy.next
+}
+```
