@@ -129,3 +129,207 @@ var reverseKGroup = function (head, k) {
   return dummy.next
 }
 ```
+
+[24. 两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function (head) {
+  if (head == null || head.next == null) return head
+  let one = head
+  let two = one.next
+  let three = two.next
+  two.next = one
+  one.next = swapPairs(three)
+  return two
+}
+```
+
+---
+
+### 环形链表
+
+---
+
+[876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var middleNode = function (head) {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  return slow
+}
+```
+
+[141. 环形链表](https://leetcode.cn/problems/linked-list-cycle/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function (head) {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow == fast) return true
+  }
+  return false
+}
+```
+
+[142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow == fast) {
+      while (slow != head) {
+        slow = slow.next
+        head = head.next
+      }
+      return slow
+    }
+  }
+  return null
+}
+```
+
+[143. 重排链表](https://leetcode.cn/problems/reorder-list/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+
+var reorderList = function (head) {
+  let mid = midList(head)
+  let head2 = reverseList(mid)
+  while (head2.next) {
+    nxt = head.next
+    nxt2 = head2.next
+    head.next = head2
+    head2.next = nxt
+    head = nxt
+    head2 = nxt2
+  }
+}
+
+const midList = (head) => {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  return slow
+}
+
+const reverseList = (head) => {
+  let pre = null
+  let cur = head
+  while (cur) {
+    let nxt = cur.next
+    cur.next = pre
+    pre = cur
+    cur = nxt
+  }
+  return pre
+}
+```
+
+[234. 回文链表](https://leetcode.cn/problems/palindrome-linked-list/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function (head) {
+  let val = []
+  while (head) {
+    val.push(head.val)
+    head = head.next
+  }
+  for (let i = 0, j = val.length - 1; i < val.length, j >= 0; i++, j--) {
+    if (val[i] != val[j]) return false
+  }
+  return true
+}
+```
