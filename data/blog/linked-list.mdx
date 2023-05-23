@@ -333,3 +333,163 @@ var isPalindrome = function (head) {
   return true
 }
 ```
+
+---
+
+### 反转链表
+
+---
+
+[237. 删除链表中的节点](https://leetcode.cn/problems/delete-node-in-a-linked-list/)
+
+```js
+// 时间复杂度O(1)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+var deleteNode = function (node) {
+  node.val = node.next.val
+  node.next = node.next.next
+}
+```
+
+[19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)
+
+```js
+// 时间复杂度O(m) m为链表长度
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+  let dummy = new ListNode()
+  dummy.next = head
+  let right = dummy
+  for (let i = 0; i < n; i++) {
+    right = right.next
+  }
+  let left = dummy
+  while (right.next) {
+    left = left.next
+    right = right.next
+  }
+  left.next = left.next.next
+  return dummy.next
+}
+```
+
+[83. 删除排序链表中的重复元素](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function (head) {
+  if (head == null) return head
+  let cur = head
+  while (cur.next) {
+    if (cur.val == cur.next.val) {
+      cur.next = cur.next.next
+    } else {
+      cur = cur.next
+    }
+  }
+  return head
+}
+```
+
+[82. 删除排序链表中的重复元素 II](https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function (head) {
+  let dummy = new ListNode()
+  dummy.next = head
+  let cur = dummy
+  while (cur.next && cur.next.next) {
+    let val = cur.next.val
+    if (val == cur.next.next.val) {
+      while (cur.next && cur.next.val == val) {
+        cur.next = cur.next.next
+      }
+    } else {
+      cur = cur.next
+    }
+  }
+  return dummy.next
+}
+```
+
+[203. 移除链表元素](https://leetcode.cn/problems/remove-linked-list-elements/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(1)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function (head, val) {
+  let dummy = new ListNode()
+  dummy.next = head
+  let cur = dummy
+  while (cur.next) {
+    if (cur.next.val == val) {
+      cur.next = cur.next.next
+    } else {
+      cur = cur.next
+    }
+  }
+  return dummy.next
+}
+```
+
+---
