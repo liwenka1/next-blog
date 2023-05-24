@@ -1,0 +1,71 @@
+---
+title: 基础算法-二叉树
+date: '2023-05-24'
+tags: ['算法', '二分查找', '深度优先搜索', '广度优先搜索']
+draft: false
+summary: '基础算法-二叉树:1.计算机是怎么执行递归的？二叉树的最大深度2.如何灵活运用递归？3.验证二叉搜索树4.二叉树的最近公共祖先5.二叉树的层序遍历'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+## 二叉树
+
+---
+
+### 计算机是怎么执行递归的？二叉树的最大深度
+
+[104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)
+
+```js
+/**
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+  if (root == null) return 0
+  let l_depth = maxDepth(root.left)
+  let r_depth = maxDepth(root.right)
+  return Math.max(l_depth, r_depth) + 1
+}
+
+var maxDepth = function (root) {
+  let ans = 0
+  const f = (node, cnt) => {
+    if (node == null) return 0
+    cnt++
+    ans = Math.max(ans, cnt)
+    f(node.left, cnt)
+    f(node.right, cnt)
+  }
+  f(root, 0)
+  return ans
+}
+```
+
+---
+
+### 如何灵活运用递归？
+
+---
+
+### 验证二叉搜索树
+
+---
+
+### 二叉树的最近公共祖先
+
+---
+
+### 二叉树的层序遍历
+
+---
