@@ -52,9 +52,390 @@ var maxDepth = function (root) {
 }
 ```
 
+[111. 二叉树的最小深度](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+  if (root == null) return 0
+  else if (root.left == null) return minDepth(root.right) + 1
+  else if (root.right == null) return minDepth(root.left) + 1
+  else return Math.min(minDepth(root.right), minDepth(root.left)) + 1
+}
+```
+
+[112. 路径总和](https://leetcode.cn/problems/path-sum/)
+
+```js
+// 时间复杂度:O(N)，其中 N 是树的节点数。
+// 空间复杂度:O(H)，其中 H 是树的高度。
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+var hasPathSum = function (root, targetSum) {
+  if (root == null) return false
+  else if (root.left == null && root.right == null) return root.val == targetSum
+  return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val)
+}
+```
+
+[113. 路径总和 II](https://leetcode.cn/problems/path-sum-ii/)
+
+```js
+// 时间复杂度:O(N^2)，其中 N 是树的节点数。
+// 空间复杂度:O(N)，其中 N 是树的节点数。
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number[][]}
+ */
+var pathSum = function (root, targetSum) {
+  let ans = []
+  let path = []
+  const f = (node, sum) => {
+    if (node == null) return
+    path.push(node.val)
+    if (node.left == null && node.right == null && sum == node.val) ans.push([...path])
+    f(node.left, sum - node.val)
+    f(node.right, sum - node.val)
+    path.pop()
+  }
+  f(root, targetSum)
+  return ans
+}
+```
+
+[129. 求根节点到叶节点数字之和](https://leetcode.cn/problems/sum-root-to-leaf-numbers/)
+
+```js
+// 时间复杂度:O(N^2)，其中 N 是树的节点数。
+// 空间复杂度:O(N)，其中 N 是树的节点数。
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumNumbers = function (root) {
+  let ans = 0
+  let path = []
+  const f = (node) => {
+    if (node == null) return
+    path.push(node.val)
+    if (node.left == null && node.right == null) ans += parseInt(path.join(''))
+    f(node.left)
+    f(node.right)
+    path.pop()
+  }
+  f(root)
+  return ans
+}
+```
+
+[257. 二叉树的所有路径](https://leetcode.cn/problems/binary-tree-paths/)
+
+```js
+// 时间复杂度:O(N^2)，其中 N 是树的节点数。
+// 空间复杂度:O(N)，其中 N 是树的节点数。
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function (root) {
+  let ans = []
+  let path = []
+  const f = (node) => {
+    if (node == null) return
+    path.push(node.val)
+    if (node.left == null && node.right == null) ans.push([...path].join('->'))
+    f(node.left)
+    f(node.right)
+    path.pop()
+  }
+  f(root)
+  return ans
+}
+```
+
 ---
 
 ### 如何灵活运用递归？
+
+[100. 相同的树](https://leetcode.cn/problems/same-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function (p, q) {
+  if (p == null || q == null) return p == q
+  return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+}
+```
+
+[101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+  return isSameTree(root.left, root.right)
+}
+
+const isSameTree = (p, q) => {
+  if (p == null || q == null) return p == q
+  return p.val == q.val && isSameTree(p.left, q.right) && isSameTree(p.right, q.left)
+}
+```
+
+[110. 平衡二叉树](https://leetcode.cn/problems/balanced-binary-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+  const f = (node) => {
+    if (node == null) return 0
+    let left = f(node.left)
+    let right = f(node.right)
+    if (left == -1 || right == -1 || Math.abs(left - right) > 1) return -1
+    return Math.max(left, right) + 1
+  }
+  return f(root) != -1
+}
+```
+
+[199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function (root) {
+  let ans = []
+  const f = (node, depth) => {
+    if (node == null) return
+    if (ans.length == depth) ans.push(node.val)
+    f(node.right, depth + 1)
+    f(node.left, depth + 1)
+  }
+  f(root, 0)
+  return ans
+}
+```
+
+[226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function (root) {
+  const f = (node) => {
+    if (node == null) return
+    ;[node.left, node.right] = [node.right, node.left]
+    f(node.left)
+    f(node.right)
+  }
+  f(root)
+  return root
+}
+```
+
+[1026. 节点与其祖先之间的最大差值](https://leetcode.cn/problems/maximum-difference-between-node-and-ancestor/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxAncestorDiff = function (root) {
+  let ans = 0
+  let path = []
+  const f = (node) => {
+    if (node == null) return
+    path.push(node.val)
+    if (node.left == null && node.right == null)
+      ans = Math.max(ans, Math.abs(Math.max(...path) - Math.min(...path)))
+    f(node.left)
+    f(node.right)
+    path.pop()
+  }
+  f(root)
+  return ans
+}
+```
+
+[1080. 根到叶路径上的不足节点](https://leetcode.cn/problems/insufficient-nodes-in-root-to-leaf-paths/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} limit
+ * @return {TreeNode}
+ */
+var sufficientSubset = function (root, limit) {
+  if (root == null) return null
+  limit -= root.val
+  if (root.left == null && root.right == null) return limit > 0 ? null : root
+  root.left = sufficientSubset(root.left, limit)
+  root.right = sufficientSubset(root.right, limit)
+  return root.left == null && root.right == null ? null : root
+}
+```
+
+[1372. 二叉树中的最长交错路径](https://leetcode.cn/problems/longest-zigzag-path-in-a-binary-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var longestZigZag = function (root) {
+  let ans = 0
+  const f = (node) => {
+    if (node == null) return [-1, -1]
+    const [lr, rl] = [f(node.left)[1] + 1, f(node.right)[0] + 1]
+    ans = Math.max(ans, Math.max(lr, rl))
+    return [lr, rl]
+  }
+  f(root)
+  return ans
+}
+```
 
 ---
 
