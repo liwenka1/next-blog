@@ -441,6 +441,84 @@ var longestZigZag = function (root) {
 
 ### 验证二叉搜索树
 
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+// 时间复杂度O(n)
+// 空间复杂度O(n)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+
+var isValidBST = function (root, left = -Infinity, right = Infinity) {
+  if (root == null) return true
+  let x = root.val
+  return left < x && x < right && isValidBST(root.left, left, x) && isValidBST(root.right, x, right)
+}
+
+var isValidBST = function (root) {
+  let pre = -Infinity
+  const dfs = (root) => {
+    if (root == null) return true
+    if (!dfs(root.left) || root.val <= pre) return false
+    pre = root.val
+    return dfs(root.right)
+  }
+  return dfs(root)
+}
+
+var isValidBST = function (root) {
+  const dfs = (root) => {
+    if (root == null) return [Infinity, -Infinity]
+    let [l_min, l_max] = dfs(root.left)
+    let [r_min, r_max] = dfs(root.right)
+    x = root.val
+    if (x <= l_max || x >= r_min) return [-Infinity, Infinity]
+    return [Math.min(l_min, x), Math.max(r_max, x)]
+  }
+  return dfs(root)[1] != Infinity
+}
+```
+
+[230. 二叉搜索树中第 K 小的元素](https://leetcode.cn/problems/kth-smallest-element-in-a-bst/)
+
+```js
+
+```
+
+[501. 二叉搜索树中的众数](https://leetcode.cn/problems/find-mode-in-binary-search-tree/)
+
+```js
+
+```
+
+[530. 二叉搜索树的最小绝对差](https://leetcode.cn/problems/minimum-absolute-difference-in-bst/)
+
+```js
+
+```
+
+[700. 二叉搜索树中的搜索](https://leetcode.cn/problems/search-in-a-binary-search-tree/)
+
+```js
+
+```
+
+[1373. 二叉搜索子树的最大键值和](https://leetcode.cn/problems/maximum-sum-bst-in-binary-tree/)
+
+```js
+
+```
+
 ---
 
 ### 二叉树的最近公共祖先
