@@ -8,7 +8,9 @@
     "build": "cross-env INIT_CWD=$PWD next build && cross-env NODE_OPTIONS='--experimental-json-modules' node -r esbuild-register ./scripts/postbuild.mjs",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
-    "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts"
+    "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
+    "lint:eslint": "eslint  --fix --ext .ts,.js,.vue ./src ",
+    "lint:prettier": "prettier --write \"**/*.{js,cjs,ts,json,tsx,css,less,scss,vue,html,md,mdx}\""
   },
   "dependencies": {
     "@next/bundle-analyzer": "13.1.6",

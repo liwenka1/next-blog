@@ -98,7 +98,10 @@ var minDepth = function (root) {
 var hasPathSum = function (root, targetSum) {
   if (root == null) return false
   else if (root.left == null && root.right == null) return root.val == targetSum
-  return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val)
+  return (
+    hasPathSum(root.left, targetSum - root.val) ||
+    hasPathSum(root.right, targetSum - root.val)
+  )
 }
 ```
 
@@ -126,7 +129,8 @@ var pathSum = function (root, targetSum) {
   const f = (node, sum) => {
     if (node == null) return
     path.push(node.val)
-    if (node.left == null && node.right == null && sum == node.val) ans.push([...path])
+    if (node.left == null && node.right == null && sum == node.val)
+      ans.push([...path])
     f(node.left, sum - node.val)
     f(node.right, sum - node.val)
     path.pop()
@@ -226,7 +230,9 @@ var binaryTreePaths = function (root) {
  */
 var isSameTree = function (p, q) {
   if (p == null || q == null) return p == q
-  return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+  return (
+    p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+  )
 }
 ```
 
@@ -253,7 +259,9 @@ var isSymmetric = function (root) {
 
 const isSameTree = (p, q) => {
   if (p == null || q == null) return p == q
-  return p.val == q.val && isSameTree(p.left, q.right) && isSameTree(p.right, q.left)
+  return (
+    p.val == q.val && isSameTree(p.left, q.right) && isSameTree(p.right, q.left)
+  )
 }
 ```
 
@@ -336,7 +344,7 @@ var rightSideView = function (root) {
 var invertTree = function (root) {
   const f = (node) => {
     if (node == null) return
-    ;[node.left, node.right] = [node.right, node.left]
+    else [node.left, node.right] = [node.right, node.left]
     f(node.left)
     f(node.right)
   }
@@ -462,7 +470,12 @@ var longestZigZag = function (root) {
 var isValidBST = function (root, left = -Infinity, right = Infinity) {
   if (root == null) return true
   let x = root.val
-  return left < x && x < right && isValidBST(root.left, left, x) && isValidBST(root.right, x, right)
+  return (
+    left < x &&
+    x < right &&
+    isValidBST(root.left, left, x) &&
+    isValidBST(root.right, x, right)
+  )
 }
 
 var isValidBST = function (root) {

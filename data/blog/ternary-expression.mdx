@@ -96,20 +96,28 @@ if (['yjs', 'lp', 'rgjs'].includes(obj.bidStatus)) {
 
 if (['jpz'].includes(obj.bidStatus)) {
   return `${
-    obj.endDate !== undefined ? obj.endDate.slice(0, obj.endDate.length - 3) || '' : ''
+    obj.endDate !== undefined
+      ? obj.endDate.slice(0, obj.endDate.length - 3) || ''
+      : ''
   }结束`
 } else {
   if (['wks', 'zbz'].includes(obj.bidStatus)) {
     if (sourceFlag === 'litigation-asstts') {
       return `预计${
-        obj.startDate !== undefined ? obj.startDate.slice(0, obj.endDate.length - 3) : ''
+        obj.startDate !== undefined
+          ? obj.startDate.slice(0, obj.endDate.length - 3)
+          : ''
       }开始`
     }
   } else {
     if (['yjs'].includes(obj.bidStatus) && obj.endDate !== undefined) {
       return obj.endDate
     } else {
-      return `${obj.startDate !== undefined ? obj.startDate.slice(0, obj.endDate.length - 3) : ''}`
+      return `${
+        obj.startDate !== undefined
+          ? obj.startDate.slice(0, obj.endDate.length - 3)
+          : ''
+      }`
     }
   }
 }

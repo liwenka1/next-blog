@@ -29,12 +29,12 @@ const siteMetadata = {
     simpleAnalytics: false, // true or false
     umamiWebsiteId: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
     posthogProjectApiKey: '', // e.g. AhnJK8392ndPOav87as450xd
-    googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
+    googleAnalyticsId: '' // e.g. UA-000000-2 or G-XXXXXXX
   },
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
     // Please add your .env file and modify it according to your selection
-    provider: 'buttondown',
+    provider: 'buttondown'
   },
   comments: {
     // If you want to use an analytics provider you have to add it to the
@@ -63,9 +63,9 @@ const siteMetadata = {
       // example: https://giscus.app/themes/custom_example.css
       themeURL: '',
       // This corresponds to the `data-lang="en"` in giscus's configurations
-      lang: 'en',
-    },
-  },
+      lang: 'en'
+    }
+  }
   // search: {
   //   provider: 'kbar', // kbar or algolia
   //   kbarConfig: {

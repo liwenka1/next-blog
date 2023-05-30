@@ -79,7 +79,10 @@ var minScoreTriangulation = function (values) {
     if (!map.has(key)) {
       let min = Number.MAX_VALUE
       for (let k = i + 1; k < j; k++) {
-        min = Math.min(min, values[i] * values[k] * values[j] + dp(i, k) + dp(k, j))
+        min = Math.min(
+          min,
+          values[i] * values[k] * values[j] + dp(i, k) + dp(k, j)
+        )
       }
       map.set(key, min)
     }

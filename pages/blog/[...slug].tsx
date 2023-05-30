@@ -11,7 +11,7 @@ const DEFAULT_LAYOUT = 'PostLayout'
 export async function getStaticPaths() {
   return {
     paths: allBlogs.map((p) => ({ params: { slug: p.slug.split('/') } })),
-    fallback: false,
+    fallback: false
   }
 }
 
@@ -35,8 +35,8 @@ export const getStaticProps = async ({ params }) => {
       post,
       authorDetails,
       prev,
-      next,
-    },
+      next
+    }
   }
 }
 
@@ -44,7 +44,7 @@ export default function BlogPostPage({
   post,
   authorDetails,
   prev,
-  next,
+  next
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>

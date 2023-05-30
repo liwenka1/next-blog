@@ -66,7 +66,10 @@ var isIsomorphic = function (s, t) {
   const mapS = new Map()
   const mapT = new Map()
   for (i = 0; i < s.length; i++) {
-    if ((mapS.get(s[i]) && mapS.get(s[i]) != t[i]) || (mapT.get(t[i]) && mapT.get(t[i]) != s[i])) {
+    if (
+      (mapS.get(s[i]) && mapS.get(s[i]) != t[i]) ||
+      (mapT.get(t[i]) && mapT.get(t[i]) != s[i])
+    ) {
       return false
     }
     mapS.set(s[i], t[i])

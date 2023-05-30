@@ -19,10 +19,15 @@ export const getStaticProps = async () => {
   return { props: { posts } }
 }
 
-export default function Home({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({
+  posts
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <PageSEO
+        title={siteMetadata.title}
+        description={siteMetadata.description}
+      />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <Welcome welcome={siteMetadata.welcome} />
@@ -44,7 +49,9 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
+                        <time dateTime={date}>
+                          {formatDate(date, siteMetadata.locale)}
+                        </time>
                       </dd>
                     </dl>
                     <div className="space-y-5 xl:col-span-3">

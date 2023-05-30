@@ -4,7 +4,9 @@ class Wave {
   frequency = 0.001
   amplitude = 1
 
-  constructor(e: Partial<Pick<Wave, 'phase' | 'offset' | 'frequency' | 'amplitude'>>) {
+  constructor(
+    e: Partial<Pick<Wave, 'phase' | 'offset' | 'frequency' | 'amplitude'>>
+  ) {
     this.phase = e.phase || 0
     this.offset = e.offset || 0
     this.frequency = e.frequency || 0.001
@@ -99,7 +101,7 @@ const E = {
   trails: 20,
   size: 50,
   dampening: 0.25,
-  tension: 0.98,
+  tension: 0.98
 }
 
 export const renderCanvas = function () {
@@ -112,7 +114,7 @@ export const renderCanvas = function () {
     phase: Math.random() * 2 * Math.PI,
     amplitude: 85,
     frequency: 0.0015,
-    offset: 285,
+    offset: 285
   })
   let running = true
   let frame = 1
@@ -163,7 +165,8 @@ export const renderCanvas = function () {
         e.preventDefault()
     }
     function start(e) {
-      1 == e.touches.length && ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY))
+      1 == e.touches.length &&
+        ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY))
     }
     document.removeEventListener('mousemove', bindMouseMove)
     document.removeEventListener('touchstart', bindMouseMove)

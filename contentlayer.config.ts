@@ -1,4 +1,8 @@
-import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer/source-files'
+import {
+  defineDocumentType,
+  ComputedFields,
+  makeSource
+} from 'contentlayer/source-files'
 import readingTime from 'reading-time'
 import path from 'path'
 // Remark packages
@@ -8,7 +12,7 @@ import {
   remarkExtractFrontmatter,
   remarkCodeTitles,
   remarkImgToJsx,
-  extractTocHeadings,
+  extractTocHeadings
 } from 'pliny/mdx-plugins.js'
 // Rehype packages
 import rehypeSlug from 'rehype-slug'
@@ -24,17 +28,17 @@ const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
   slug: {
     type: 'string',
-    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ''),
+    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, '')
   },
   path: {
     type: 'string',
-    resolve: (doc) => doc._raw.flattenedPath,
+    resolve: (doc) => doc._raw.flattenedPath
   },
   filePath: {
     type: 'string',
-    resolve: (doc) => doc._raw.sourceFilePath,
+    resolve: (doc) => doc._raw.sourceFilePath
   },
-  toc: { type: 'string', resolve: (doc) => extractTocHeadings(doc.body.raw) },
+  toc: { type: 'string', resolve: (doc) => extractTocHeadings(doc.body.raw) }
 }
 
 export const Blog = defineDocumentType(() => ({
@@ -52,9 +56,9 @@ export const Blog = defineDocumentType(() => ({
     authors: { type: 'list', of: { type: 'string' } },
     layout: { type: 'string' },
     bibliography: { type: 'string' },
-    canonicalUrl: { type: 'string' },
+    canonicalUrl: { type: 'string' }
   },
-  computedFields,
+  computedFields
 }))
 
 export const Authors = defineDocumentType(() => ({
@@ -70,9 +74,9 @@ export const Authors = defineDocumentType(() => ({
     twitter: { type: 'string' },
     linkedin: { type: 'string' },
     github: { type: 'string' },
-    layout: { type: 'string' },
+    layout: { type: 'string' }
   },
-  computedFields,
+  computedFields
 }))
 
 export default makeSource({
@@ -85,7 +89,7 @@ export default makeSource({
       remarkGfm,
       remarkCodeTitles,
       remarkMath,
-      remarkImgToJsx,
+      remarkImgToJsx
     ],
     rehypePlugins: [
       rehypeSlug,
@@ -93,7 +97,7 @@ export default makeSource({
       rehypeKatex,
       [rehypeCitation, { path: path.join(root, 'data') }],
       [rehypePrismPlus, { ignoreMissing: true }],
-      rehypePresetMinify,
-    ],
-  },
+      rehypePresetMinify
+    ]
+  }
 })
