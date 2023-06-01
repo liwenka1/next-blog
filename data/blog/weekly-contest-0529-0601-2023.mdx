@@ -70,8 +70,7 @@ var largestOverlap = function (img1, img2) {
   let map = new Map()
   for (let i = 0; i < img1.length; i++) {
     for (let x = 0; x < img1[i].length; x++) {
-      let temp = img1[i][x]
-      if (temp) {
+      if (img1[i][x]) {
         for (let j = 0; j < img2.length; j++) {
           for (let y = 0; y < img1[j].length; y++) {
             if (img2[j][y])
