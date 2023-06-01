@@ -1,0 +1,163 @@
+---
+title: 0529-0601 周赛
+date: '2023-06-01'
+tags: ['算法', '周赛', 'LeetCode']
+draft: false
+summary: '1.第 84 场周赛 2.第 332 场周赛 3.第 186 场周赛 4.第 276 场周赛'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 第 84 场周赛
+
+---
+
+[832. 翻转图像](https://leetcode.cn/problems/flipping-an-image/)
+
+```js
+/**
+ * @param {number[][]} image
+ * @return {number[][]}
+ */
+var flipAndInvertImage = function (image) {
+  for (let img of image) {
+    img.reverse()
+    for (let i = 0; i < img.length; i++) {
+      img[i] = img[i] == 0 ? 1 : 0
+    }
+  }
+  return image
+}
+```
+
+[833. 字符串中的查找与替换](https://leetcode.cn/problems/find-and-replace-in-string/)
+
+```js
+/**
+ * @param {string} s
+ * @param {number[]} indices
+ * @param {string[]} sources
+ * @param {string[]} targets
+ * @return {string}
+ */
+var findReplaceString = function (s, indices, sources, targets) {
+  let n = s.length
+  let ans = ''
+  for (let i = 0; i < n; i++) {
+    if (indices.includes(i)) {
+      let index = indices.indexOf(i)
+      let len = sources[index].length
+      let str = s.slice(i, i + len)
+      if (str == sources[index]) {
+        ans += targets[index]
+        i += len - 1
+      } else ans += s[i]
+    } else ans += s[i]
+  }
+  return ans
+}
+```
+
+[835. 图像重叠](https://leetcode.cn/problems/image-overlap/)
+
+```js
+/**
+ * @param {number[][]} img1
+ * @param {number[][]} img2
+ * @return {number}
+ */
+var largestOverlap = function (img1, img2) {
+  let map = new Map()
+  for (let i = 0; i < img1.length; i++) {
+    for (let x = 0; x < img1[i].length; x++) {
+      let temp = img1[i][x]
+      if (temp) {
+        for (let j = 0; j < img2.length; j++) {
+          for (let y = 0; y < img1[j].length; y++) {
+            if (img2[j][y])
+              map.set(
+                JSON.stringify([i - j, x - y]),
+                (map.get(JSON.stringify([i - j, x - y])) || 0) + 1
+              )
+          }
+        }
+      }
+    }
+  }
+  return map.size ? Math.max(...map.values()) : 0
+}
+```
+
+---
+
+### 第 332 场周赛
+
+---
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+---
+
+### 第 186 场周赛
+
+---
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+---
+
+### 第 276 场周赛
+
+---
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+
+```js
+
+```
+
+---
