@@ -75,8 +75,8 @@ var largestOverlap = function (img1, img2) {
           for (let y = 0; y < img1[j].length; y++) {
             if (img2[j][y])
               map.set(
-                JSON.stringify([i - j, x - y]),
-                (map.get(JSON.stringify([i - j, x - y])) || 0) + 1
+                i - j + '-' + (x - y),
+                (map.get(i - j + '-' + (x - y)) || 0) + 1
               )
           }
         }
