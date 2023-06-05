@@ -93,22 +93,83 @@ var largestOverlap = function (img1, img2) {
 
 ---
 
-[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+[2562. 找出数组的串联值](https://leetcode.cn/problems/find-the-array-concatenation-value/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findTheArrayConcVal = function (nums) {
+  let ans = 0
+  let left = 0
+  let right = nums.length - 1
+  while (left < right) {
+    let sum = nums[left].toString() + nums[right].toString()
+    ans += Number(sum)
+    left++
+    right--
+  }
+  return left == right ? (ans += nums[left]) : ans
+}
 ```
 
-[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+[2563. 统计公平数对的数目](https://leetcode.cn/problems/count-the-number-of-fair-pairs/)
 
 ```js
+/**
+ * @param {number[]} nums
+ * @param {number} lower
+ * @param {number} upper
+ * @return {number}
+ */
+var countFairPairs = function (nums, lower, upper) {
+  nums.sort((a, b) => a - b)
+  let ans = 0
+  for (let i = 0; i < nums.length; i++) {
+    let left = lower_upper(nums, i, lower - nums[i])
+    let right = lower_upper(nums, i, upper - nums[i] + 1)
+    ans += right - left
+  }
+  return ans
+}
 
+const lower_upper = (nums, right, target) => {
+  let left = 0
+  while (left < right) {
+    let mid = parseInt((left + right) / 2)
+    if (nums[mid] >= target) right = mid
+    else left = mid + 1
+  }
+  return left
+}
 ```
 
-[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/)
+[2564. 子字符串异或查询](https://leetcode.cn/problems/substring-xor-queries/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @param {number[][]} queries
+ * @return {number[][]}
+ */
+var substringXorQueries = function (s, queries) {
+  let m = {}
+  let i = s.indexOf('0')
+  if (i >= 0) m[0] = [i, i]
+  for (let l = 0, n = s.length; l < n; l++) {
+    if (s[l] == '0') continue
+    for (let r = l, x = 0; r < Math.min(l + 30, n); r++) {
+      x = (x << 1) | (s[r].charCodeAt() & 1)
+      if (!m[x]) m[x] = [l, r]
+    }
+  }
+  let ans = []
+  for (let [x, y] of queries) {
+    ans.push(m[x ^ y] || [-1, -1])
+  }
+  return ans
+}
 ```
 
 ---
@@ -208,6 +269,7 @@ var largestOverlap = function (img1, img2) {
 ```
 
 ---
+
 ### 第 348 场周赛
 
 ---
