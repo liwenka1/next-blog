@@ -181,19 +181,76 @@ var substringXorQueries = function (s, queries) {
 [1422. 分割字符串的最大得分](https://leetcode.cn/problems/maximum-score-after-splitting-a-string/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var maxScore = function (s) {
+  let n = s.length
+  let left = 0
+  let right = 0
+  let ans = new Array(n - 1).fill(0)
+  for (let i = 0, j = n - 1; i < n - 1, j > 0; i++, j--) {
+    if (s[i] == '0') left++
+    ans[i] += left
+    if (s[j] == '1') right++
+    ans[j - 1] += right
+  }
+  return Math.max(...ans)
+}
 ```
 
 [1423. 可获得的最大点数](https://leetcode.cn/problems/maximum-points-you-can-obtain-from-cards/)
 
 ```js
-
+/**
+ * @param {number[]} cardPoints
+ * @param {number} k
+ * @return {number}
+ */
+var maxScore = function (cardPoints, k) {
+  let sum = 0
+  for (let i = 0; i < k; i++) {
+    sum += cardPoints[i]
+  }
+  let ans = sum
+  let n = cardPoints.length
+  while (k > 0) {
+    k--
+    n--
+    sum -= cardPoints[k]
+    sum += cardPoints[n]
+    ans = Math.max(ans, sum)
+  }
+  return ans
+}
 ```
 
 [1424. 对角线遍历 II](https://leetcode.cn/problems/diagonal-traverse-ii/)
 
 ```js
-
+/**
+ * @param {number[][]} nums
+ * @return {number[]}
+ */
+var findDiagonalOrder = function (nums) {
+  let n = nums.length
+  let map = {}
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < nums[i].length; j++) {
+      if (map[i + j]) {
+        map[i + j].push(nums[i][j])
+      } else {
+        map[i + j] = [nums[i][j]]
+      }
+    }
+  }
+  let ans = []
+  for (let val of Object.values(map)) {
+    ans.push(...val.reverse())
+  }
+  return ans
+}
 ```
 
 ---
