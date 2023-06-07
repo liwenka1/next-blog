@@ -104,7 +104,7 @@ const E = {
   tension: 0.98
 }
 
-export const renderCanvas = function () {
+export const RenderCanvas = function () {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
 
   const ctx: CanvasRenderingContext2D = canvas!.getContext('2d')!
@@ -119,7 +119,7 @@ export const renderCanvas = function () {
   let running = true
   let frame = 1
   function resizeCanvas() {
-    ctx.canvas.width = window.innerWidth - 17
+    ctx.canvas.width = window.innerWidth - 6
     ctx.canvas.height = window.innerHeight
   }
 

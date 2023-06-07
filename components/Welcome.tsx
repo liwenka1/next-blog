@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
-import { renderCanvas } from './renderCanvas'
+import { RenderCanvas } from './RenderCanvas'
 
 interface Props {
   welcome: string
@@ -8,13 +8,13 @@ interface Props {
 export default function Welcome({ welcome }: Props): ReactElement {
   const ref = useRef<HTMLHeadingElement>(null)
   useEffect(() => {
-    renderCanvas()
+    RenderCanvas()
     ref.current?.classList.add('transition-in')
   }, [])
   return (
     <div>
       <canvas
-        className="bg-skin-base pointer-events-none absolute inset-0"
+        className="absolute inset-0 pointer-events-none bg-skin-base"
         id="canvas"
       ></canvas>
       <div className="relative z-10 flex h-[calc(100vh_-_135px)] items-center justify-center">
@@ -22,7 +22,7 @@ export default function Welcome({ welcome }: Props): ReactElement {
           {welcome.split('').map((latter, index) => (
             <span
               style={{ transitionDelay: 0.2 * (index + 1) + 's' }}
-              className="opacity-1 transition-opacity"
+              className="transition-opacity opacity-1"
               key={index}
             >
               {latter}
