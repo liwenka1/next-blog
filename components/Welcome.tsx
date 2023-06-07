@@ -14,7 +14,7 @@ export default function Welcome({ welcome }: Props): ReactElement {
   return (
     <div>
       <canvas
-        className="absolute inset-0 pointer-events-none bg-skin-base"
+        className="bg-skin-base pointer-events-none absolute inset-0"
         id="canvas"
       ></canvas>
       <div className="relative z-10 flex h-[calc(100vh_-_135px)] items-center justify-center">
@@ -22,7 +22,7 @@ export default function Welcome({ welcome }: Props): ReactElement {
           {welcome.split('').map((latter, index) => (
             <span
               style={{ transitionDelay: 0.2 * (index + 1) + 's' }}
-              className="transition-opacity opacity-1"
+              className="opacity-1 transition-opacity"
               key={index}
             >
               {latter}
