@@ -262,19 +262,80 @@ var findDiagonalOrder = function (nums) {
 [2138. 将字符串拆分为若干长度为 k 的组](https://leetcode.cn/problems/divide-a-string-into-groups-of-size-k/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @param {number} k
+ * @param {character} fill
+ * @return {string[]}
+ */
+var divideString = function (s, k, fill) {
+  let ans = []
+  let n = s.length
+  for (let i = 0; n % k > 0 && i < k - (n % k); i++) {
+    s += fill
+  }
+  for (let i = 0; i < s.length; i += k) {
+    ans.push(s.substring(i, i + k))
+  }
+  return ans
+}
 ```
 
 [2139. 得到目标值的最少行动次数](https://leetcode.cn/problems/minimum-moves-to-reach-target-score/)
 
 ```js
-
+/**
+ * @param {number} target
+ * @param {number} maxDoubles
+ * @return {number}
+ */
+var minMoves = function (target, maxDoubles) {
+  let ans = 0
+  while (target > 1) {
+    if (target % 2 == 0 && maxDoubles > 0) {
+      target /= 2
+      maxDoubles--
+      ans++
+    } else if (maxDoubles == 0) {
+      ans += target - 1
+      target = 1
+    } else {
+      target--
+      ans++
+    }
+  }
+  return ans
+}
 ```
 
 [2140. 解决智力问题](https://leetcode.cn/problems/solving-questions-with-brainpower/)
 
 ```js
+/**
+ * @param {number[][]} questions
+ * @return {number}
+ */
+var mostPoints = function (questions) {
+  let n = questions.length
+  let f = new Array(n + 1).fill(0)
+  for (let [index, [v, i]] of questions.entries()) {
+    f[index + 1] = Math.max(f[index], f[index + 1])
+    let j = Math.min(index + i + 1, n)
+    f[j] = Math.max(f[j], f[index] + v)
+  }
+  return f[n]
+}
 
+var mostPoints = function (questions) {
+  let n = questions.length
+  let f = new Array(n + 1).fill(0)
+  for (let index = n - 1; index >= 0; index--) {
+    let [v, i] = questions[index]
+    let j = index + i + 1
+    f[index] = Math.max(v + (j < n ? f[j] : 0), f[index + 1])
+  }
+  return f[0]
+}
 ```
 
 ---
