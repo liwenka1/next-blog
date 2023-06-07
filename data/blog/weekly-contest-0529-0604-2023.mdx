@@ -347,7 +347,20 @@ var mostPoints = function (questions) {
 [1221. 分割平衡字符串](https://leetcode.cn/problems/split-a-string-in-balanced-strings/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var balancedStringSplit = function (s) {
+  let cnt = 0
+  let ans = 0
+  for (let i of s) {
+    if (i == 'R') cnt++
+    else cnt--
+    if (cnt == 0) ans++
+  }
+  return ans
+}
 ```
 
 [1222. 可以攻击国王的皇后](https://leetcode.cn/problems/queens-that-can-attack-the-king/)
@@ -371,7 +384,17 @@ var mostPoints = function (questions) {
 [1556. 千位分隔数](https://leetcode.cn/problems/thousand-separator/)
 
 ```js
-
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var thousandSeparator = function (n) {
+  let s = n.toString().split('')
+  for (let i = s.length - 4; i >= 0; i -= 3) {
+    s[i] += '.'
+  }
+  return s.join('')
+}
 ```
 
 [1557. 可以到达所有点的最少点数目](https://leetcode.cn/problems/minimum-number-of-vertices-to-reach-all-nodes/)
