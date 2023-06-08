@@ -107,7 +107,7 @@ const E = {
 export const RenderCanvas = function () {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
 
-  const ctx: CanvasRenderingContext2D = canvas!.getContext('2d')!
+  const ctx: CanvasRenderingContext2D = canvas.getContext('2d')
   let lines: Line[] = []
   const pos = { x: 0, y: 0 }
   const wave = new Wave({
@@ -117,7 +117,6 @@ export const RenderCanvas = function () {
     offset: 285
   })
   let running = true
-  let frame = 1
   function resizeCanvas() {
     ctx.canvas.width = window.innerWidth - 6
     ctx.canvas.height = window.innerHeight
@@ -133,21 +132,11 @@ export const RenderCanvas = function () {
       ctx.globalCompositeOperation = 'lighter'
       ctx.strokeStyle = 'hsla(' + Math.round(wave.update()) + ',90%,50%,0.25)'
       ctx.lineWidth = 1
-      // ctx.frame % 60 == 0 &&
-      //   console.log(
-      //     f.update(),
-      //     Math.round(f.update()),
-      //     f.phase,
-      //     f.offset,
-      //     f.frequency,
-      //     f.amplitude
-      //   );
       for (let i = 0; i < E.trails; i++) {
         const line = lines[i]
         line.update()
         line.draw(ctx)
       }
-      frame++
       window.requestAnimationFrame(animate)
     }
   }
