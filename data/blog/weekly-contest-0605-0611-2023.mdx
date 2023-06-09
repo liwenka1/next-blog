@@ -80,13 +80,51 @@ var minimumDeletions = function (nums) {
 [1974. 使用特殊打字机键入单词的最少时间](https://leetcode.cn/problems/minimum-time-to-type-word-using-special-typewriter/)
 
 ```js
-
+/**
+ * @param {string} word
+ * @return {number}
+ */
+var minTimeToType = function (word) {
+  let n = word.length
+  let ans = 0
+  for (let i = 1; i < n; i++) {
+    ans += Math.min(
+      Math.abs(word[i].charCodeAt() - word[i - 1].charCodeAt()),
+      26 - Math.abs(word[i].charCodeAt() - word[i - 1].charCodeAt())
+    )
+  }
+  ans +=
+    n +
+    Math.min(
+      Math.abs(word[0].charCodeAt() - 'a'.charCodeAt()),
+      26 - Math.abs(word[0].charCodeAt() - 'a'.charCodeAt())
+    )
+  return ans
+}
 ```
 
 [1975. 最大方阵和](https://leetcode.cn/problems/maximum-matrix-sum/)
 
 ```js
-
+/**
+ * @param {number[][]} matrix
+ * @return {number}
+ */
+var maxMatrixSum = function (matrix) {
+  let min = Infinity
+  let ans = 0
+  let cnt = 0
+  let n = matrix.length
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      const n = Math.abs(matrix[i][j])
+      min = Math.min(min, n)
+      ans += n
+      if (matrix[i][j] < 0) cnt ^= 1
+    }
+  }
+  return cnt ? ans - 2 * min : ans
+}
 ```
 
 [1976. 到达目的地的方案数](https://leetcode.cn/problems/number-of-ways-to-arrive-at-destination/)
