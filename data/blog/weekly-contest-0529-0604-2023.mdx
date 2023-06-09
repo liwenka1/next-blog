@@ -366,7 +366,38 @@ var balancedStringSplit = function (s) {
 [1222. 可以攻击国王的皇后](https://leetcode.cn/problems/queens-that-can-attack-the-king/)
 
 ```js
-
+/**
+ * @param {number[][]} queens
+ * @param {number[]} king
+ * @return {number[][]}
+ */
+const queensAttacktheKing = (queens, king) => {
+  const steps = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+    [1, 1],
+    [-1, -1],
+    [-1, 1],
+    [1, -1]
+  ]
+  const queenSet = new Set(queens.map((q) => q.join('-')))
+  const ans = []
+  for (const [dx, dy] of steps) {
+    let x = king[0]
+    let y = king[1]
+    while (x >= 0 && x < 8 && y >= 0 && y < 8) {
+      x += dx
+      y += dy
+      if (queenSet.has([x, y].join('-'))) {
+        ans.push([x, y])
+        break
+      }
+    }
+  }
+  return ans
+}
 ```
 
 [1223. 掷骰子模拟](https://leetcode.cn/problems/dice-roll-simulation/)
@@ -400,13 +431,49 @@ var thousandSeparator = function (n) {
 [1557. 可以到达所有点的最少点数目](https://leetcode.cn/problems/minimum-number-of-vertices-to-reach-all-nodes/)
 
 ```js
-
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findSmallestSetOfVertices = function (n, edges) {
+  let ans = []
+  let ids = new Array(n).fill(0)
+  for (let edge of edges) {
+    ids[edge[1]]++
+  }
+  for (let i = 0; i < n; i++) {
+    if (ids[i] == 0) ans.push(i)
+  }
+  return ans
+}
 ```
 
 [1558. 得到目标数组的最少函数调用次数](https://leetcode.cn/problems/minimum-numbers-of-function-calls-to-make-target-array/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minOperations = function (nums) {
+  let ans = 0
+  let maxn = 0
+  for (let num of nums) {
+    maxn = Math.max(num, maxn)
+    while (num != 0) {
+      if (num & 1) {
+        ans++
+      }
+      num >>= 1
+    }
+  }
+  while (maxn != 0) {
+    ans++
+    maxn >>= 1
+  }
+  return ans == 0 ? ans : ans - 1
+}
 ```
 
 ---
@@ -418,19 +485,54 @@ var thousandSeparator = function (n) {
 [6462. 最小化字符串长度](https://leetcode.cn/problems/minimize-string-length/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minimizedStringLength = function (s) {
+  return new Set(s.split('')).size
+}
 ```
 
 [6424. 半有序排列](https://leetcode.cn/problems/semi-ordered-permutation/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var semiOrderedPermutation = function (nums) {
+  let left = nums.indexOf(Math.min(...nums))
+  let right = nums.indexOf(Math.max(...nums))
+  let n = nums.length
+  return left + n - 1 - right - (right > left ? 0 : 1)
+}
 ```
 
 [6472. 查询后矩阵的和](https://leetcode.cn/problems/sum-of-matrix-after-queries/)
 
 ```js
-
+/**
+ * @param {number} n
+ * @param {number[][]} queries
+ * @return {number}
+ */
+var matrixSumQueries = function (n, queries) {
+  let row = new Set()
+  let col = new Set()
+  let ans = 0
+  queries.reverse()
+  for (let query of queries) {
+    if (query[0] == 0 && !row.has(query[1])) {
+      row.add(query[1])
+      ans += (n - col.size) * query[2]
+    } else if (query[0] == 1 && !col.has(query[1])) {
+      col.add(query[1])
+      ans += (n - row.size) * query[2]
+    }
+  }
+  return ans
+}
 ```
 
 ---
