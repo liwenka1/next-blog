@@ -5,7 +5,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import { sortedBlogPost, allCoreContent } from 'pliny/utils/contentlayer'
 import { InferGetStaticPropsType } from 'next'
-import { NewsletterForm } from 'pliny/ui/NewsletterForm'
+// import { NewsletterForm } from 'pliny/ui/NewsletterForm'
 import { allBlogs } from 'contentlayer/generated'
 import type { Blog } from 'contentlayer/generated'
 import Welcome from '@/components/Welcome'
@@ -103,11 +103,11 @@ export default function Home({
           </Link>
         </div>
       )}
-      {siteMetadata.newsletter.provider && (
+      {/* {siteMetadata.newsletter.provider && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />
         </div>
-      )}
+      )} */}
     </>
   )
 }
