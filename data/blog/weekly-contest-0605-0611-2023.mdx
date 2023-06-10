@@ -3,7 +3,7 @@ title: 0605-0611 周赛
 date: '2023-06-09'
 tags: ['算法', '周赛', 'LeetCode']
 draft: false
-summary: '1.第 269 场周赛 2.第 59 场双周赛 3.第 38 场双周赛 4.第 340 场周赛'
+summary: '1.第 269 场周赛 2.第 59 场双周赛 3.第 38 场双周赛 4.第 340 场周赛 5.第 65 场双周赛 6.第 270 场周赛'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -142,19 +142,64 @@ var maxMatrixSum = function (matrix) {
 [1636. 按照频率将数组升序排序](https://leetcode.cn/problems/sort-array-by-increasing-frequency/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var frequencySort = function (nums) {
+  let map = {}
+  for (let num of nums) {
+    if (!map[num]) map[num] = 0
+    map[num]++
+  }
+  return nums.sort((a, b) => {
+    if (map[a] == map[b]) return b - a
+    return map[a] - map[b]
+  })
+}
 ```
 
 [1637. 两点之间不包含任何点的最宽垂直区域](https://leetcode.cn/problems/widest-vertical-area-between-two-points-containing-no-points/)
 
 ```js
-
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var maxWidthOfVerticalArea = function (points) {
+  points.sort((a, b) => a[0] - b[0])
+  let ans = 0
+  for (let i = 1; i < points.length; i++) {
+    ans = Math.max(points[i][0] - points[i - 1][0], ans)
+  }
+  return ans
+}
 ```
 
 [1638. 统计只差一个字符的子串数目](https://leetcode.cn/problems/count-substrings-that-differ-by-one-character/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {number}
+ */
+var countSubstrings = function (s, t) {
+  let m = s.length
+  let n = t.length
+  let ans = 0
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      let temp = 0
+      for (let k = 0; k + i < m && k + j < n; k++) {
+        temp += s[k + i] == t[k + j] ? 0 : 1
+        if (temp == 1) ans++
+        else if (temp > 1) break
+      }
+    }
+  }
+  return ans
+}
 ```
 
 ---
@@ -166,7 +211,27 @@ var maxMatrixSum = function (matrix) {
 [2614. 对角线上的质数](https://leetcode.cn/problems/prime-in-diagonal/)
 
 ```js
-
+/**
+ * @param {number[][]} nums
+ * @return {number}
+ */
+var diagonalPrime = function (nums) {
+  let n = nums.length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    let x = nums[i][i]
+    if (isPrime(x)) ans = Math.max(ans, x)
+    let y = nums[i][n - 1 - i]
+    if (isPrime(y)) ans = Math.max(ans, y)
+  }
+  return ans
+}
+const isPrime = (n) => {
+  for (let i = 2; i * i <= n; i++) {
+    if (n % i == 0) return false
+  }
+  return n >= 2
+}
 ```
 
 [2615. 等值距离和](https://leetcode.cn/problems/sum-of-distances/)
@@ -176,6 +241,54 @@ var maxMatrixSum = function (matrix) {
 ```
 
 [2616. 最小化数对的最大差值](https://leetcode.cn/problems/minimize-the-maximum-difference-of-pairs/)
+
+```js
+
+```
+
+---
+
+### 第 65 场双周赛
+
+---
+
+[2068. 检查两个字符串是否几乎相等](https://leetcode.cn/problems/check-whether-two-strings-are-almost-equivalent/)
+
+```js
+
+```
+
+[2069. 模拟行走机器人 II](https://leetcode.cn/problems/walking-robot-simulation-ii/)
+
+```js
+
+```
+
+[2070. 每一个查询的最大美丽值](https://leetcode.cn/problems/most-beautiful-item-for-each-query/)
+
+```js
+
+```
+
+---
+
+### 第 270 场周赛
+
+---
+
+[2094. 找出 3 位偶数](https://leetcode.cn/problems/finding-3-digit-even-numbers/)
+
+```js
+
+```
+
+[2095. 删除链表的中间节点](https://leetcode.cn/problems/delete-the-middle-node-of-a-linked-list/)
+
+```js
+
+```
+
+[2096. 从二叉树一个节点到另一个节点每一步的方向](https://leetcode.cn/problems/step-by-step-directions-from-a-binary-tree-node-to-another/)
 
 ```js
 
