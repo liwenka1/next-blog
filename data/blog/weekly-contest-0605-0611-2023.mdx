@@ -3,7 +3,7 @@ title: 0605-0611 周赛
 date: '2023-06-09'
 tags: ['算法', '周赛', 'LeetCode']
 draft: false
-summary: '1.第 269 场周赛 2.第 59 场双周赛 3.第 38 场双周赛 4.第 340 场周赛 5.第 65 场双周赛 6.第 270 场周赛'
+summary: '1.第 269 场周赛 2.第 59 场双周赛 3.第 38 场双周赛 4.第 340 场周赛 5.第 65 场双周赛 6.第 270 场周赛 7.第 106 场双周赛 8.第 349 场周赛'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -237,13 +237,58 @@ const isPrime = (n) => {
 [2615. 等值距离和](https://leetcode.cn/problems/sum-of-distances/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var distance = function (nums) {
+  const map = {}
+  const n = nums.length
+  for (let i = 0; i < n; i++) {
+    if (!map[nums[i]]) map[nums[i]] = []
+    map[nums[i]].push(i)
+  }
+  const ans = new Array(n).fill(0)
+  for (let x of Object.values(map)) {
+    let m = x.length
+    let s = new Array(m + 1).fill(0)
+    for (let i = 0; i < m; i++) s[i + 1] = s[i] + x[i]
+    for (let i = 0; i < m; i++) {
+      let target = x[i]
+      ans[target] = target * i - s[i] + s[m] - s[i] - target * (m - i)
+    }
+  }
+  return ans
+}
 ```
 
 [2616. 最小化数对的最大差值](https://leetcode.cn/problems/minimize-the-maximum-difference-of-pairs/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number} p
+ * @return {number}
+ */
+var minimizeMax = function (nums, p) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  let left = 0
+  let right = nums[n - 1] - nums[0]
+  while (left < right) {
+    let mid = parseInt((left + right) / 2)
+    let cnt = 0
+    for (let i = 1; i < n; i++) {
+      if (nums[i] - nums[i - 1] <= mid) {
+        cnt++
+        i++
+      }
+    }
+    if (cnt >= p) right = mid
+    else left = mid + 1
+  }
+  return left
+}
 ```
 
 ---
@@ -255,7 +300,23 @@ const isPrime = (n) => {
 [2068. 检查两个字符串是否几乎相等](https://leetcode.cn/problems/check-whether-two-strings-are-almost-equivalent/)
 
 ```js
-
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {boolean}
+ */
+var checkAlmostEquivalent = function (word1, word2) {
+  let map = {}
+  let n = word1.length
+  for (let i = 0; i < n; i++) {
+    map[word1[i]] ? map[word1[i]]++ : (map[word1[i]] = 1)
+    map[word2[i]] ? map[word2[i]]-- : (map[word2[i]] = -1)
+  }
+  for (let i of Object.values(map)) {
+    if (i > 3 || i < -3) return false
+  }
+  return true
+}
 ```
 
 [2069. 模拟行走机器人 II](https://leetcode.cn/problems/walking-robot-simulation-ii/)
@@ -267,7 +328,29 @@ const isPrime = (n) => {
 [2070. 每一个查询的最大美丽值](https://leetcode.cn/problems/most-beautiful-item-for-each-query/)
 
 ```js
-
+/**
+ * @param {number[][]} items
+ * @param {number[]} queries
+ * @return {number[]}
+ */
+var maximumBeauty = function (items, queries) {
+  items.sort((a, b) => a[0] - b[0])
+  let n = items.length
+  for (let i = 1; i < n; i++) {
+    items[i][1] = Math.max(items[i - 1][1], items[i][1])
+  }
+  const f = (x) => {
+    let left = 0
+    let right = n
+    while (left < right) {
+      let mid = parseInt((left + right) / 2)
+      if (items[mid][0] > x) right = mid
+      else left = mid + 1
+    }
+    return left - 1 >= 0 ? items[left - 1][1] : 0
+  }
+  return queries.map(f)
+}
 ```
 
 ---
@@ -279,16 +362,102 @@ const isPrime = (n) => {
 [2094. 找出 3 位偶数](https://leetcode.cn/problems/finding-3-digit-even-numbers/)
 
 ```js
-
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var findEvenNumbers = function (digits) {
+  let n = digits.length
+  let ans = new Set()
+  for (let i = 0; i < n; i++) {
+    if (digits[i] % 2 == 0) {
+      for (let j = 0; j < n; j++) {
+        for (let k = 0; k < n; k++) {
+          if (k != j && j != i && k != i && digits[k] != 0) {
+            ans.add('' + digits[k] + digits[j] + digits[i])
+          }
+        }
+      }
+    }
+  }
+  return Array.from(ans).sort((a, b) => a - b)
+}
 ```
 
 [2095. 删除链表的中间节点](https://leetcode.cn/problems/delete-the-middle-node-of-a-linked-list/)
 
 ```js
-
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteMiddle = function (head) {
+  if (head == null || head.next == null) return null
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    fast = fast.next.next
+    if (fast == null || fast.next == null) {
+      slow.next = slow.next.next
+    }
+    slow = slow.next
+  }
+  return head
+}
 ```
 
 [2096. 从二叉树一个节点到另一个节点每一步的方向](https://leetcode.cn/problems/step-by-step-directions-from-a-binary-tree-node-to-another/)
+
+```js
+
+```
+
+### 第 106 场双周赛
+
+---
+
+[6461. 判断一个数是否迷人](https://leetcode.cn/problems/check-if-the-number-is-fascinating/)
+
+```js
+
+```
+
+[6425. 找到最长的半重复子字符串](https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/)
+
+```js
+
+```
+
+[6426. 移动机器人](https://leetcode.cn/problems/movement-of-robots/)
+
+```js
+
+```
+
+### 第 349 场周赛
+
+---
+
+[6470. 既不是最小值也不是最大值](https://leetcode.cn/problems/neither-minimum-nor-maximum/)
+
+```js
+
+```
+
+[6465. 执行子串操作后的字典序最小字符串](https://leetcode.cn/problems/lexicographically-smallest-string-after-substring-operation/)
+
+```js
+
+```
+
+[6449. 收集巧克力](https://leetcode.cn/problems/collecting-chocolates/)
 
 ```js
 
