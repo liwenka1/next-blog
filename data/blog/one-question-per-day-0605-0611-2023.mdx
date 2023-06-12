@@ -13,19 +13,79 @@ bibliography: references-data.bib
 [2460. 对数组执行操作](https://leetcode.cn/problems/apply-operations-to-an-array/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var applyOperations = function (nums) {
+  let j = 0
+  const n = nums.length
+  for (let i = 0; i < n; i++) {
+    if (nums[i] != 0) {
+      if (i + 1 < n && nums[i] == nums[i + 1]) {
+        nums[j++] = 2 * nums[i++]
+      } else {
+        nums[j++] = nums[i]
+      }
+    }
+  }
+  while (j < n) {
+    nums[j++] = 0
+  }
+  return nums
+}
 ```
 
 [2352. 相等行列对](https://leetcode.cn/problems/equal-row-and-column-pairs/)
 
 ```js
-
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var equalPairs = function (grid) {
+  const n = grid.length
+  const map = new Map()
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    const row = grid[i].join('-')
+    map.set(row, (map.get(row) || 0) + 1)
+  }
+  for (let i = 0; i < n; i++) {
+    const temp = []
+    for (let j = 0; j < n; j++) {
+      temp.push(grid[j][i])
+    }
+    const str = temp.join('-')
+    if (map.has(str)) ans += map.get(str)
+  }
+  return ans
+}
 ```
 
 [2611. 老鼠和奶酪](https://leetcode.cn/problems/mice-and-cheese/)
 
 ```js
-
+/**
+ * @param {number[]} reward1
+ * @param {number[]} reward2
+ * @param {number} k
+ * @return {number}
+ */
+var miceAndCheese = function (reward1, reward2, k) {
+  const n = reward1.length
+  const list = []
+  for (let i = 0; i < n; i++) {
+    list.push(reward1[i] - reward2[i])
+  }
+  list.sort((a, b) => b - a)
+  let ans = 0
+  for (let i = 0, j = 0; i < n; i++) {
+    ans += reward2[i]
+    if (j < k) ans += list[j++]
+  }
+  return ans
+}
 ```
 
 [1240. 铺瓷砖](https://leetcode.cn/problems/tiling-a-rectangle-with-the-fewest-squares/)
@@ -49,7 +109,33 @@ bibliography: references-data.bib
 [1171. 从链表中删去总和值为零的连续节点](https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/)
 
 ```js
-
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var removeZeroSumSublists = function (head) {
+  let dummy = new ListNode()
+  dummy.next = head
+  const pre = {}
+  let cnt = 0
+  for (let node = dummy; node != null; node = node.next) {
+    cnt += node.val
+    pre[cnt] = node.next
+  }
+  cnt = 0
+  for (let node = dummy; node != null; node = node.next) {
+    cnt += node.val
+    node.next = pre[cnt]
+  }
+  return dummy.next
+}
 ```
 
 ---

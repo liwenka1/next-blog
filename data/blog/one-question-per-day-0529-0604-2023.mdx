@@ -13,13 +13,53 @@ bibliography: references-data.bib
 [2455. 可被三整除的偶数的平均值](https://leetcode.cn/problems/average-value-of-even-numbers-that-are-divisible-by-three/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var averageValue = function (nums) {
+  let ans = 0
+  let k = 0
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] % 3 == 0 && nums[i] % 2 == 0) {
+      ans += nums[i]
+      k++
+    }
+  }
+  return k > 0 ? parseInt(ans / k) : 0
+}
 ```
 
 [1110. 删点成林](https://leetcode.cn/problems/delete-nodes-and-return-forest/)
 
 ```js
-
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number[]} to_delete
+ * @return {TreeNode[]}
+ */
+var delNodes = function (root, to_delete) {
+  const ans = []
+  const dfs = (node) => {
+    if (node == null) return null
+    node.left = dfs(node.left)
+    node.right = dfs(node.right)
+    if (!to_delete.includes(node.val)) return node
+    if (node.left) ans.push(node.left)
+    if (node.right) ans.push(node.right)
+    return null
+  }
+  if (dfs(root)) ans.push(root)
+  return ans
+}
 ```
 
 [1130. 叶值的最小代价生成树](https://leetcode.cn/problems/minimum-cost-tree-from-leaf-values/)
@@ -37,7 +77,28 @@ bibliography: references-data.bib
 [2559. 统计范围内的元音字符串数](https://leetcode.cn/problems/count-vowel-strings-in-ranges/)
 
 ```js
-
+/**
+ * @param {string[]} words
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var vowelStrings = function (words, queries) {
+  const str = ['a', 'e', 'i', 'o', 'u']
+  const n = words.length
+  const temp = [0]
+  for (let i = 0; i < n; i++) {
+    temp[i + 1] =
+      temp[i] +
+      (str.includes(words[i][0]) && str.includes(words[i][words[i].length - 1])
+        ? 1
+        : 0)
+  }
+  const ans = []
+  for (let query of queries) {
+    ans.push(temp[query[1] + 1] - temp[query[0]])
+  }
+  return ans
+}
 ```
 
 [1156. 单字符重复子串的最大长度](https://leetcode.cn/problems/swap-for-longest-repeated-character-substring/)
@@ -49,7 +110,20 @@ bibliography: references-data.bib
 [2465. 不同的平均值数目](https://leetcode.cn/problems/number-of-distinct-averages/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var distinctAverages = function (nums) {
+  nums.sort((a, b) => a - b)
+  let ans = new Set()
+  while (nums.length) {
+    let left = nums.shift()
+    let right = nums.pop()
+    ans.add((left + right) / 2)
+  }
+  return ans.size
+}
 ```
 
 ---
