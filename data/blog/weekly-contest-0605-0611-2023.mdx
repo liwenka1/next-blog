@@ -426,19 +426,77 @@ var deleteMiddle = function (head) {
 [6461. 判断一个数是否迷人](https://leetcode.cn/problems/check-if-the-number-is-fascinating/)
 
 ```js
-
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isFascinating = function (n) {
+  if (n < 123 || n > 329) return false
+  let str = '' + n + 2 * n + 3 * n
+  const map = {}
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] == 0) return false
+    if (!map[str[i]]) map[str[i]] = 0
+    map[str[i]]++
+    if (map[str[i]] > 1) return false
+  }
+  return true
+}
 ```
 
 [6425. 找到最长的半重复子字符串](https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestSemiRepetitiveSubstring = function (s) {
+  let ans = 1
+  let n = s.length
+  let left = 0
+  let cnt = 0
+  for (let right = 1; right < n; right++) {
+    cnt += s[right] == s[right - 1] ? 1 : 0
+    if (cnt > 1) {
+      left++
+      while (s[left] != s[left - 1]) left++
+      cnt--
+    }
+    ans = Math.max(ans, right - left + 1)
+  }
+  return ans
+}
 ```
 
 [6426. 移动机器人](https://leetcode.cn/problems/movement-of-robots/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {string} s
+ * @param {number} d
+ * @return {number}
+ */
+var sumDistance = function (nums, s, d) {
+  const n = s.length
+  for (let i = 0; i < n; i++) {
+    if (s[i] == 'R') {
+      nums[i] += d
+    } else {
+      nums[i] -= d
+    }
+  }
+  nums.sort((a, b) => a - b)
+  let ans = 0
+  let sum = 0
+  for (let i = 1; i < n; i++) {
+    sum += (nums[i] - nums[i - 1]) * i
+    ans += sum
+    ans %= 1e9 + 7
+  }
+  return ans
+}
 ```
 
 ### 第 349 场周赛
@@ -448,19 +506,60 @@ var deleteMiddle = function (head) {
 [6470. 既不是最小值也不是最大值](https://leetcode.cn/problems/neither-minimum-nor-maximum/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findNonMinOrMax = function (nums) {
+  if (nums.length < 3) return -1
+  nums = nums.slice(0, 3).sort((a, b) => a - b)
+  return nums[1]
+}
 ```
 
 [6465. 执行子串操作后的字典序最小字符串](https://leetcode.cn/problems/lexicographically-smallest-string-after-substring-operation/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var smallestString = function (s) {
+  s = s.split('')
+  const n = s.length
+  for (let i = 0; i < n; i++) {
+    if (s[i] != 'a') {
+      for (let j = i; j < n; j++) {
+        if (s[j] == 'a') break
+        s[j] = String.fromCharCode(s[j].charCodeAt() - 1)
+      }
+      return s.join('')
+    }
+  }
+  s[n - 1] = 'z'
+  return s.join('')
+}
 ```
 
 [6449. 收集巧克力](https://leetcode.cn/problems/collecting-chocolates/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var minCost = function (nums, x) {
+  const n = nums.length
+  let temp = [...nums]
+  let ans = nums.reduce((sum, num) => sum + num)
+  for (let i = 0; i < n; i++) {
+    temp = [...temp.slice(1), temp[0]]
+    nums = nums.map((num, j) => Math.min(num, temp[j]))
+    ans = Math.min(ans, nums.reduce((sum, num) => sum + num) + x * (i + 1))
+  }
+  return ans
+}
 ```
 
 ---
