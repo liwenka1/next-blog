@@ -15,13 +15,49 @@ bibliography: references-data.bib
 [2605. 从两个数字数组里生成最小数字](https://leetcode.cn/problems/form-smallest-number-from-two-digit-arrays/)
 
 ```js
-
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var minNumber = function (nums1, nums2) {
+  const s1 = new Set(nums1)
+  const s2 = new Set(nums2)
+  const s = [...s1].filter((i) => s2.has(i))
+  if (s.length !== 0) return Math.min(...s)
+  const x = Math.min(...nums1)
+  const y = Math.min(...nums2)
+  return Math.min(x * 10 + y, y * 10 + x)
+}
 ```
 
 [2606. 找到最大开销的子字符串](https://leetcode.cn/problems/find-the-substring-with-maximum-cost/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @param {string} chars
+ * @param {number[]} vals
+ * @return {number}
+ */
+var maximumCostSubstring = function (s, chars, vals) {
+  const map = []
+  for (let i = 0; i < 26; i++) {
+    map[i] = i + 1
+  }
+  const n = chars.length
+  for (let i = 0; i < n; i++) {
+    map[chars[i].charCodeAt() - 'a'.charCodeAt()] = vals[i]
+  }
+  const m = s.length
+  let ans = 0
+  let sum = 0
+  for (let i = 0; i < m; i++) {
+    sum = Math.max(sum, 0) + map[s[i].charCodeAt() - 'a'.charCodeAt()]
+    ans = Math.max(ans, sum)
+  }
+  return ans
+}
 ```
 
 [2607. 使子数组元素和相等](https://leetcode.cn/problems/make-k-subarray-sums-equal/)

@@ -163,7 +163,7 @@ var sumNumbers = function (root) {
   const f = (node) => {
     if (node == null) return
     path.push(node.val)
-    if (node.left == null && node.right == null) ans += parseInt(path.join(''))
+    if (node.left == null && node.right == null) ans += Number(path.join(''))
     f(node.left)
     f(node.right)
     path.pop()
