@@ -15,19 +15,72 @@ bibliography: references-data.bib
 [2558. 从数量最多的堆取走礼物](https://leetcode.cn/problems/take-gifts-from-the-richest-pile/)
 
 ```js
-
+/**
+ * @param {number[]} gifts
+ * @param {number} k
+ * @return {number}
+ */
+var pickGifts = function (gifts, k) {
+  while (k > 0) {
+    const index = gifts.indexOf(Math.max(...gifts))
+    gifts[index] = Math.floor(Math.sqrt(gifts[index]))
+    k--
+  }
+  return gifts.reduce((a, b) => a + b)
+}
 ```
 
 [2559. 统计范围内的元音字符串数](https://leetcode.cn/problems/count-vowel-strings-in-ranges/)
 
 ```js
-
+/**
+ * @param {string[]} words
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var vowelStrings = function (words, queries) {
+  const str = ['a', 'e', 'i', 'o', 'u']
+  const n = words.length
+  const temp = [0]
+  for (let i = 0; i < n; i++) {
+    temp[i + 1] =
+      temp[i] +
+      (str.includes(words[i][0]) && str.includes(words[i][words[i].length - 1])
+        ? 1
+        : 0)
+  }
+  const ans = []
+  for (let query of queries) {
+    ans.push(temp[query[1] + 1] - temp[query[0]])
+  }
+  return ans
+}
 ```
 
 [2560. 打家劫舍 IV](https://leetcode.cn/problems/house-robber-iv/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var minCapability = function (nums, k) {
+  let left = 0
+  let right = 1e9
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2)
+    let f0 = 0
+    let f1 = 0
+    for (let x of nums) {
+      if (x > mid) f0 = f1
+      else [f0, f1] = [f1, Math.max(f0 + 1, f1)]
+    }
+    if (f1 >= k) right = mid
+    else left = mid + 1
+  }
+  return left
+}
 ```
 
 ---
