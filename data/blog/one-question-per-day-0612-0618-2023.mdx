@@ -3,7 +3,7 @@ title: 0612-0618 每日一题
 date: '2023-06-12'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.1483. 树节点的第 K 个祖先 2.2475. 数组中不等三元组的数目'
+summary: '1.1483. 树节点的第 K 个祖先 2.2475. 数组中不等三元组的数目 3.1375. 二进制字符串前缀一致的次数'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -35,6 +35,25 @@ var unequalTriplets = function (nums) {
   for (let key in map) {
     ans += map[key] * cnt * (n - cnt - map[key])
     cnt += map[key]
+  }
+  return ans
+}
+```
+
+[1375. 二进制字符串前缀一致的次数](https://leetcode.cn/problems/number-of-times-binary-string-is-prefix-aligned/)
+
+```js
+/**
+ * @param {number[]} flips
+ * @return {number}
+ */
+var numTimesAllBlue = function (flips) {
+  let max = 0
+  let ans = 0
+  const n = flips.length
+  for (let i = 0; i < n; i++) {
+    max = Math.max(max, flips[i])
+    if (max == i + 1) ans++
   }
   return ans
 }

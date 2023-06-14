@@ -92,13 +92,36 @@ var minCapability = function (nums, k) {
 [1929. 数组串联](https://leetcode.cn/problems/concatenation-of-array/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var getConcatenation = function (nums) {
+  return [...nums, ...nums]
+}
 ```
 
 [1930. 长度为 3 的不同回文子序列](https://leetcode.cn/problems/unique-length-3-palindromic-subsequences/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countPalindromicSubsequence = function (s) {
+  let ans = 0
+  let n = s.length
+  let set = new Set()
+  for (let left = 0; left < n - 2; left++) {
+    if (!set.has(s[left])) {
+      set.add(s[left])
+      let right = n - 1
+      while (s[left] != s[right]) right--
+      ans += new Set(s.slice(left + 1, right).split('')).size
+    }
+  }
+  return ans
+}
 ```
 
 [1931. 用三种不同颜色为网格涂色](https://leetcode.cn/problems/painting-a-grid-with-three-different-colors/)
@@ -116,7 +139,21 @@ var minCapability = function (nums, k) {
 [2239. 找到最接近 0 的数字](https://leetcode.cn/problems/find-closest-number-to-zero/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findClosestNumber = function (nums) {
+  let ans = 0
+  let temp = Infinity
+  for (let num of nums) {
+    if (Math.abs(num) <= temp) {
+      temp = Math.abs(num)
+      ans = ans == temp ? Math.max(ans, num) : num
+    }
+  }
+  return ans
+}
 ```
 
 [2240. 买钢笔和铅笔的方案数](https://leetcode.cn/problems/number-of-ways-to-buy-pens-and-pencils/)

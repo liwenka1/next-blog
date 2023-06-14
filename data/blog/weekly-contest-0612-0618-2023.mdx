@@ -100,13 +100,50 @@ const gcd = (a, b) => {
 [2210. 统计数组中峰和谷的数量](https://leetcode.cn/problems/count-hills-and-valleys-in-an-array/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countHillValley = function (nums) {
+  let ans = 0
+  for (let i = 1; i < nums.length - 1; i++) {
+    if (nums[i] == nums[i + 1]) continue
+    let left = i - 1
+    let right = i + 1
+    while (nums[left] == nums[i]) left--
+    while (nums[right] == nums[i]) right++
+    if (
+      (nums[left] < nums[i] && nums[i] > nums[right]) ||
+      (nums[left] > nums[i] && nums[i] < nums[right])
+    )
+      ans++
+  }
+  return ans
+}
 ```
 
 [2211. 统计道路上的碰撞次数](https://leetcode.cn/problems/count-collisions-on-a-road/)
 
 ```js
-
+/**
+ * @param {string} directions
+ * @return {number}
+ */
+var countCollisions = function (directions) {
+  let left = 0
+  let right = directions.length
+  while (left < right) {
+    if (directions[left] == 'L') left++
+    else if (directions[right - 1] == 'R') right--
+    else break
+  }
+  directions = directions.slice(left, right)
+  let cnt = 0
+  for (let d of directions) {
+    if (d == 'S') cnt++
+  }
+  return directions.length - cnt
+}
 ```
 
 [2212. 射箭比赛中的最大得分](https://leetcode.cn/problems/maximum-points-in-an-archery-competition/)
