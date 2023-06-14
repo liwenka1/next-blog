@@ -159,7 +159,19 @@ var findClosestNumber = function (nums) {
 [2240. 买钢笔和铅笔的方案数](https://leetcode.cn/problems/number-of-ways-to-buy-pens-and-pencils/)
 
 ```js
-
+/**
+ * @param {number} total
+ * @param {number} cost1
+ * @param {number} cost2
+ * @return {number}
+ */
+var waysToBuyPensPencils = function (total, cost1, cost2) {
+  let ans = 0
+  for (let i = 0; i * cost1 <= total; i++) {
+    ans += Math.floor((total - i * cost1) / cost2) + 1
+  }
+  return ans
+}
 ```
 
 [2241. 设计一个 ATM 机器](https://leetcode.cn/problems/design-an-atm-machine/)
