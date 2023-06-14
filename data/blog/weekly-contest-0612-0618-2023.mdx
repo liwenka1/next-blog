@@ -3,7 +3,7 @@ title: 0612-0618 周赛
 date: '2023-06-12'
 tags: ['算法', '周赛', 'LeetCode']
 draft: false
-summary: '1.第 101 场双周赛 2.第 285 场周赛'
+summary: '1.第 101 场双周赛 2.第 285 场周赛 3.第 144 场周赛'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -91,6 +91,10 @@ const gcd = (a, b) => {
 }
 ```
 
+[2608. 图中的最短环](https://leetcode.cn/problems/shortest-cycle-in-a-graph/)
+
+````js
+
 ---
 
 ### 第 285 场周赛
@@ -120,7 +124,7 @@ var countHillValley = function (nums) {
   }
   return ans
 }
-```
+````
 
 [2211. 统计道路上的碰撞次数](https://leetcode.cn/problems/count-collisions-on-a-road/)
 
@@ -150,6 +154,119 @@ var countCollisions = function (directions) {
 
 ```js
 
+```
+
+[2213. 由单个字符重复的最长子字符串](https://leetcode.cn/problems/longest-substring-of-one-repeating-character/)
+
+```js
+
+```
+
+---
+
+### 第 144 场周赛
+
+---
+
+[1108. IP 地址无效化](https://leetcode.cn/problems/defanging-an-ip-address/)
+
+```js
+/**
+ * @param {string} address
+ * @return {string}
+ */
+var defangIPaddr = function (address) {
+  return address.replaceAll('.', '[.]')
+}
+```
+
+[1109. 航班预订统计](https://leetcode.cn/problems/corporate-flight-bookings/)
+
+```js
+/**
+ * @param {number[][]} bookings
+ * @param {number} n
+ * @return {number[]}
+ */
+var corpFlightBookings = function (bookings, n) {
+  const ans = new Array(n).fill(0)
+  for (let booking of bookings) {
+    ans[booking[0] - 1] += booking[2]
+    if (booking[1] < n) {
+      ans[booking[1]] -= booking[2]
+    }
+  }
+  for (let i = 1; i < ans.length; i++) {
+    ans[i] += ans[i - 1]
+  }
+  return ans
+}
+```
+
+[1110. 删点成林](https://leetcode.cn/problems/delete-nodes-and-return-forest/)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number[]} to_delete
+ * @return {TreeNode[]}
+ */
+var delNodes = function (root, to_delete) {
+  const ans = []
+  const dfs = (node) => {
+    if (node == null) return null
+    node.left = dfs(node.left)
+    node.right = dfs(node.right)
+    if (!to_delete.includes(node.val)) return node
+    if (node.left) ans.push(node.left)
+    if (node.right) ans.push(node.right)
+    return null
+  }
+  if (dfs(root)) ans.push(root)
+  return ans
+}
+```
+
+[1111. 有效括号的嵌套深度](https://leetcode.cn/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/)
+
+```js
+/**
+ * @param {string} seq
+ * @return {number[]}
+ */
+var maxDepthAfterSplit = function (seq) {
+  const ans = []
+  let a = 0
+  let b = 0
+  for (s of seq) {
+    if (s == '(') {
+      if (a <= b) {
+        a++
+        ans.push(0)
+      } else {
+        b++
+        ans.push(1)
+      }
+    } else {
+      if (a > b) {
+        a--
+        ans.push(0)
+      } else {
+        b--
+        ans.push(1)
+      }
+    }
+  }
+  return ans
+}
 ```
 
 ---

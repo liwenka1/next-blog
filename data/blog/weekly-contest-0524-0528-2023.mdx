@@ -83,6 +83,12 @@ var minCapability = function (nums, k) {
 }
 ```
 
+[2561. 重排水果](https://leetcode.cn/problems/rearranging-fruits/)
+
+```js
+
+```
+
 ---
 
 ### 第 249 场周赛
@@ -125,6 +131,12 @@ var countPalindromicSubsequence = function (s) {
 ```
 
 [1931. 用三种不同颜色为网格涂色](https://leetcode.cn/problems/painting-a-grid-with-three-different-colors/)
+
+```js
+
+```
+
+[1932. 合并多棵二叉搜索树](https://leetcode.cn/problems/merge-bsts-to-create-single-bst/)
 
 ```js
 
@@ -177,6 +189,54 @@ var waysToBuyPensPencils = function (total, cost1, cost2) {
 [2241. 设计一个 ATM 机器](https://leetcode.cn/problems/design-an-atm-machine/)
 
 ```js
+var ATM = function () {
+  this.money = [0, 0, 0, 0, 0]
+  this.size = [20, 50, 100, 200, 500]
+}
+
+/**
+ * @param {number[]} banknotesCount
+ * @return {void}
+ */
+ATM.prototype.deposit = function (banknotesCount) {
+  for (let i = 0; i < banknotesCount.length; i++) {
+    this.money[i] += banknotesCount[i]
+  }
+}
+
+/**
+ * @param {number} amount
+ * @return {number[]}
+ */
+ATM.prototype.withdraw = function (amount) {
+  const temp = [...this.money]
+  const ans = [0, 0, 0, 0, 0]
+  for (let i = this.size.length - 1; i >= 0; i--) {
+    if (this.money[i] > 0 && amount >= this.size[i]) {
+      let cnt = Math.floor(amount / this.size[i])
+      ans[i] = Math.min(cnt, this.money[i])
+      this.money[i] -= ans[i]
+      amount -= this.size[i] * ans[i]
+    }
+  }
+  if (amount) {
+    this.money = temp
+    return [-1]
+  }
+  return ans
+}
+
+/**
+ * Your ATM object will be instantiated and called as such:
+ * var obj = new ATM()
+ * obj.deposit(banknotesCount)
+ * var param_2 = obj.withdraw(amount)
+ */
+```
+
+[2242. 节点序列的最大得分](https://leetcode.cn/problems/maximum-score-of-a-node-sequence/)
+
+```js
 
 ```
 
@@ -199,6 +259,12 @@ var waysToBuyPensPencils = function (total, cost1, cost2) {
 ```
 
 [1680. 连接连续二进制数字](https://leetcode.cn/problems/concatenation-of-consecutive-binary-numbers/)
+
+```js
+
+```
+
+[1681. 最小不兼容性](https://leetcode.cn/problems/minimum-incompatibility/)
 
 ```js
 
