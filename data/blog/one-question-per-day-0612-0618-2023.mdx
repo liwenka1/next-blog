@@ -3,7 +3,7 @@ title: 0612-0618 每日一题
 date: '2023-06-12'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.1483. 树节点的第 K 个祖先 2.2475. 数组中不等三元组的数目 3.1375. 二进制字符串前缀一致的次数'
+summary: '1.1483. 树节点的第 K 个祖先 2.2475. 数组中不等三元组的数目 3.1375. 二进制字符串前缀一致的次数 4.1177. 构建回文串检测'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -54,6 +54,33 @@ var numTimesAllBlue = function (flips) {
   for (let i = 0; i < n; i++) {
     max = Math.max(max, flips[i])
     if (max == i + 1) ans++
+  }
+  return ans
+}
+```
+
+[1177. 构建回文串检测](https://leetcode.cn/problems/can-make-palindrome-from-substring/)
+
+```js
+/**
+ * @param {string} s
+ * @param {number[][]} queries
+ * @return {boolean[]}
+ */
+var canMakePaliQueries = function (s, queries) {
+  const n = s.length
+  const sum = new Array(n + 1).fill([]).map(() => new Array(26).fill(0))
+  for (let i = 0; i < n; i++) {
+    sum[i + 1] = [...sum[i]]
+    sum[i + 1][s.charCodeAt(i) - 'a'.charCodeAt()]++
+  }
+  const ans = []
+  for (let [left, right, k] of queries) {
+    let m = 0
+    for (let i = 0; i < 26; i++) {
+      m += (sum[right + 1][i] - sum[left][i]) % 2
+    }
+    ans.push(Math.floor(m / 2) <= k)
   }
   return ans
 }

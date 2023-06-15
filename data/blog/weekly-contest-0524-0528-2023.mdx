@@ -249,19 +249,71 @@ ATM.prototype.withdraw = function (amount) {
 [1678. 设计 Goal 解析器](https://leetcode.cn/problems/goal-parser-interpretation/)
 
 ```js
-
+/**
+ * @param {string} command
+ * @return {string}
+ */
+var interpret = function (command) {
+  let ans = ''
+  for (let i = 0; i < command.length; i++) {
+    if (command[i] == '(') {
+      if (command[i + 1] == ')') {
+        ans += 'o'
+      } else {
+        ans += 'al'
+      }
+    } else if (command[i] == 'G') {
+      ans += 'G'
+    }
+  }
+  return ans
+}
 ```
 
 [1679. K 和数对的最大数目](https://leetcode.cn/problems/max-number-of-k-sum-pairs/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maxOperations = function (nums, k) {
+  nums.sort((a, b) => a - b)
+  let left = 0
+  let right = nums.length - 1
+  let ans = 0
+  while (left < right) {
+    const sum = nums[left] + nums[right]
+    if (sum < k) left++
+    else if (sum > k) right--
+    else {
+      ans++
+      left++
+      right--
+    }
+  }
+  return ans
+}
 ```
 
 [1680. 连接连续二进制数字](https://leetcode.cn/problems/concatenation-of-consecutive-binary-numbers/)
 
 ```js
-
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var concatenatedBinary = function (n) {
+  let ans = 0
+  for (let i = 1; i <= n; i++) {
+    const str = i.toString(2)
+    for (let i = 0; i < str.length; i++) {
+      ans = (ans * 2 + Number(str[i])) % (1e9 + 7)
+    }
+  }
+  return ans
+}
 ```
 
 [1681. 最小不兼容性](https://leetcode.cn/problems/minimum-incompatibility/)
