@@ -3,7 +3,7 @@ title: 0612-0618 周赛
 date: '2023-06-12'
 tags: ['算法', '周赛', 'LeetCode']
 draft: false
-summary: '1.第 101 场双周赛 2.第 285 场周赛 3.第 144 场周赛'
+summary: '1.第 101 场双周赛 2.第 285 场周赛 3.第 144 场周赛 4.第 118 场周赛'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -267,6 +267,115 @@ var maxDepthAfterSplit = function (seq) {
   }
   return ans
 }
+```
+
+---
+
+### 第 144 场周赛
+
+---
+
+[970. 强整数](https://leetcode.cn/problems/powerful-integers/)
+
+```js
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} bound
+ * @return {number[]}
+ */
+var powerfulIntegers = function (x, y, bound) {
+  const set = new Set()
+  let value1 = 1
+  for (let i = 0; i < 21; i++) {
+    let value2 = 1
+    for (let j = 0; j < 21; j++) {
+      let value = value1 + value2
+      if (value <= bound) {
+        set.add(value)
+      } else {
+        break
+      }
+      value2 *= y
+    }
+    value1 *= x
+  }
+  return Array.from(set)
+}
+```
+
+[969. 煎饼排序](https://leetcode.cn/problems/pancake-sorting/)
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var pancakeSort = function (arr) {
+  let n = arr.length
+  const ans = []
+  const reverse = (i, j) => {
+    while (i < j) {
+      ;[arr[i], arr[j]] = [arr[j], arr[i]]
+      i++
+      j--
+    }
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    let maxIndex = 0
+    let max = arr[0]
+    for (let j = 0; j <= i; j++) {
+      if (arr[j] > max) {
+        max = arr[j]
+        maxIndex = j
+      }
+    }
+    if (maxIndex != i) {
+      reverse(0, maxIndex)
+      reverse(0, i)
+      ans.push(maxIndex + 1, i + 1)
+    }
+  }
+  return ans
+}
+```
+
+[971. 翻转二叉树以匹配先序遍历](https://leetcode.cn/problems/flip-binary-tree-to-match-preorder-traversal/)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number[]} voyage
+ * @return {number[]}
+ */
+var flipMatchVoyage = function (root, voyage) {
+  const ans = []
+  let i = 0
+  const f = (node) => {
+    if (node == null) return true
+    if (node.val != voyage[i++]) return false
+    if (node.left && node.left.val != voyage[i]) {
+      ans.push(node.val)
+      return f(node.right) && f(node.left)
+    }
+    return f(node.left) && f(node.right)
+  }
+  return f(root) ? ans : [-1]
+}
+```
+
+[972. 相等的有理数](https://leetcode.cn/problems/equal-rational-numbers/)
+
+```js
+
 ```
 
 ---
