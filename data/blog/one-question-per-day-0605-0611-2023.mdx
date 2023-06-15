@@ -103,7 +103,36 @@ var miceAndCheese = function (reward1, reward2, k) {
 [1170. 比较字符串最小字母出现频次](https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/)
 
 ```js
-
+/**
+ * @param {string[]} queries
+ * @param {string[]} words
+ * @return {number[]}
+ */
+var numSmallerByFrequency = function (queries, words) {
+  const count = new Array(12).fill(0)
+  const ans = []
+  for (let s of words) {
+    count[f(s)]++
+  }
+  for (let i = count.length - 2; i >= 0; i--) {
+    count[i] += count[i + 1]
+  }
+  for (let s of queries) {
+    ans.push(count[f(s) + 1])
+  }
+  return ans
+}
+const f = (s) => {
+  s = s.split('').sort().join('')
+  let cnt = 0
+  let temp = ''
+  for (let i of s) {
+    if (i != temp && temp != '') return cnt
+    temp = i
+    cnt++
+  }
+  return cnt
+}
 ```
 
 [1171. 从链表中删去总和值为零的连续节点](https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/)
