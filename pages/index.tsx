@@ -9,6 +9,10 @@ import { InferGetStaticPropsType } from 'next'
 import { allBlogs } from 'contentlayer/generated'
 import type { Blog } from 'contentlayer/generated'
 import Welcome from '@/components/Welcome'
+import dynamic from 'next/dynamic'
+const Aplayer = dynamic(import('../components/Aplayer'), {
+  ssr: false
+})
 
 const MAX_DISPLAY = 5
 
@@ -31,6 +35,7 @@ export default function Home({
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <Welcome welcome={siteMetadata.welcome} />
+          <Aplayer />
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Latest
           </h1>
