@@ -24,17 +24,16 @@ bibliography: references-data.bib
  * @return {number}
  */
 var unequalTriplets = function (nums) {
-  const map = {}
+  const map = new Map()
   const n = nums.length
   let cnt = 0
   let ans = 0
   for (let num of nums) {
-    if (!map[num]) map[num] = 0
-    map[num]++
+    map.set(num, (map.get(num) || 0) + 1)
   }
-  for (let key in map) {
-    ans += map[key] * cnt * (n - cnt - map[key])
-    cnt += map[key]
+  for (let m of map.values()) {
+    ans += m * cnt * (n - cnt - m)
+    cnt += m
   }
   return ans
 }

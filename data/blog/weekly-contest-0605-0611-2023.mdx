@@ -260,14 +260,14 @@ const isPrime = (n) => {
  * @return {number[]}
  */
 var distance = function (nums) {
-  const map = {}
+  const map = new Map()
   const n = nums.length
   for (let i = 0; i < n; i++) {
-    if (!map[nums[i]]) map[nums[i]] = []
-    map[nums[i]].push(i)
+    if (!map.has(nums[i])) map.set(nums[i], [i])
+    else map.get(nums[i]).push(i)
   }
   const ans = new Array(n).fill(0)
-  for (let x of Object.values(map)) {
+  for (let x of map.values()) {
     let m = x.length
     let s = new Array(m + 1).fill(0)
     for (let i = 0; i < m; i++) s[i + 1] = s[i] + x[i]
@@ -471,12 +471,10 @@ var deleteMiddle = function (head) {
 var isFascinating = function (n) {
   if (n < 123 || n > 329) return false
   let str = '' + n + 2 * n + 3 * n
-  const map = {}
+  const set = new Set()
   for (let i = 0; i < str.length; i++) {
-    if (str[i] == 0) return false
-    if (!map[str[i]]) map[str[i]] = 0
-    map[str[i]]++
-    if (map[str[i]] > 1) return false
+    if (set.has(str[i]) || str[i] === '0') return false
+    set.add(str[i])
   }
   return true
 }

@@ -3,7 +3,7 @@ title: 0612-0618 周赛
 date: '2023-06-12'
 tags: ['算法', '周赛', 'LeetCode']
 draft: false
-summary: '1.第 101 场双周赛 2.第 285 场周赛 3.第 144 场周赛 4.第 118 场周赛'
+summary: '1.第 101 场双周赛 2.第 285 场周赛 3.第 144 场周赛 4.第 118 场周赛 5.第 150 场周赛'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -376,6 +376,142 @@ var flipMatchVoyage = function (root, voyage) {
 
 ```js
 
+```
+
+---
+
+### 第 150 场周赛
+
+---
+
+[1160. 拼写单词](https://leetcode.cn/problems/find-words-that-can-be-formed-by-characters/)
+
+```js
+/**
+ * @param {string[]} words
+ * @param {string} chars
+ * @return {number}
+ */
+var countCharacters = function (words, chars) {
+  const map = new Map()
+  let ans = 0
+  for (let c of chars) {
+    map.set(c, (map.get(c) || 0) + 1)
+  }
+  for (let word of words) {
+    if (word.length > chars.length) continue
+    const temp = new Map()
+    let flag = true
+    for (let w of word) {
+      if (!map.has(w) || map.get(w) <= temp.get(w)) {
+        flag = false
+        break
+      }
+      temp.set(w, (temp.get(w) || 0) + 1)
+    }
+    if (flag) ans += word.length
+  }
+  return ans
+}
+```
+
+[1161. 最大层内元素和](https://leetcode.cn/problems/maximum-level-sum-of-a-binary-tree/)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxLevelSum = function (root) {
+  let level = 1
+  let maxLevel = 1
+  let maxLevelSum = -Infinity
+  const path = [root]
+  while (path.length) {
+    let sum = 0
+    const n = path.length
+    for (let i = 0; i < n; i++) {
+      const node = path.shift()
+      sum += node.val
+      if (node.left) path.push(node.left)
+      if (node.right) path.push(node.right)
+    }
+    if (sum > maxLevelSum) {
+      maxLevelSum = sum
+      maxLevel = level
+    }
+    level++
+  }
+  return maxLevel
+}
+```
+
+[1162. 地图分析](https://leetcode.cn/problems/as-far-from-land-as-possible/)
+
+```js
+var maxDistance = function (grid) {
+  const n = grid.length
+  if (n < 2) return -1
+  const dp = []
+  for (let i = 0; i < n; i++) {
+    dp[i] = []
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      dp[i][j] = grid[i][j] ? 0 : Infinity
+    }
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j]) continue
+      if (i - 1 >= 0) dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + 1)
+      if (j - 1 >= 0) dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + 1)
+    }
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = n - 1; j >= 0; j--) {
+      if (grid[i][j]) continue
+      if (i + 1 < n) dp[i][j] = Math.min(dp[i][j], dp[i + 1][j] + 1)
+      if (j + 1 < n) dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + 1)
+    }
+  }
+  let ans = -1
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (!grid[i][j]) ans = Math.max(ans, dp[i][j])
+    }
+  }
+  return ans == Infinity ? -1 : ans
+}
+```
+
+[1163. 按字典序排在最后的子串](https://leetcode.cn/problems/last-substring-in-lexicographical-order/)
+
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var lastSubstring = function (s) {
+  let i = 0
+  let j = 1
+  const n = s.length
+  while (j < n) {
+    let k = 0
+    while (s[i + k] == s[j + k]) k++
+    if (s[i + k] < s[j + k]) [i, j] = [j, Math.max(j + 1, i + k + 1)]
+    else j = j + k + 1
+  }
+  return s.slice(i, n)
+}
 ```
 
 ---
