@@ -1,0 +1,36 @@
+---
+title: 0612-0618 每日一题
+date: '2023-06-12'
+tags: ['算法', '每日一题', 'LeetCode']
+draft: false
+summary: '1.1262. 可被三整除的最大和'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+---
+
+[1262. 可被三整除的最大和](https://leetcode.cn/problems/greatest-sum-divisible-by-three/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSumDivThree = function (nums) {
+  const n = nums.length
+  const f = new Array(2).fill([]).map(() => new Array(3).fill(-Infinity))
+  f[0][0] = 0
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < 3; j++) {
+      f[(i + 1) % 2][j] = Math.max(
+        f[i % 2][j],
+        f[i % 2][(j + nums[i]) % 3] + nums[i]
+      )
+    }
+  }
+  return f[n % 2][0]
+}
+```
+
+---
