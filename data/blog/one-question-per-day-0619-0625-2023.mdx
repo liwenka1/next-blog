@@ -48,7 +48,35 @@ var maxSumDivThree = function (nums) {
 [面试题 16.19. 水域大小](https://leetcode.cn/problems/pond-sizes-lcci/)
 
 ```js
-
+/**
+ * @param {number[][]} land
+ * @return {number[]}
+ */
+var pondSizes = function (land) {
+  const n = land.length
+  const m = land[0].length
+  const ans = []
+  const dfs = (i, j) => {
+    land[i][j] = 1
+    let cnt = 1
+    for (let k = i - 1; k <= i + 1; k++) {
+      for (let t = j - 1; t <= j + 1; t++) {
+        if (k >= 0 && k < n && t >= 0 && t < m && land[k][t] == 0) {
+          cnt += dfs(k, t)
+        }
+      }
+    }
+    return cnt
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      if (land[i][j] == 0) {
+        ans.push(dfs(i, j))
+      }
+    }
+  }
+  return ans.sort((a, b) => a - b)
+}
 ```
 
 [2496. 数组中字符串的最大值](https://leetcode.cn/problems/maximum-value-of-a-string-in-an-array/)
