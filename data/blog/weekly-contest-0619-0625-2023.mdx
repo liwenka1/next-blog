@@ -3,7 +3,7 @@ title: 0619-0625 周赛
 date: '2023-06-19'
 tags: ['算法', '周赛', 'LeetCode']
 draft: false
-summary: '1.第 302 场双周赛'
+summary: '1.第 302 场双周赛 2.第 107 场双周赛 3.第 351 场周赛'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -31,6 +31,107 @@ bibliography: references-data.bib
 ```
 
 [2344. 使数组可以被整除的最少删除次数](https://leetcode.cn/problems/minimum-deletions-to-make-array-divisible/)
+
+```js
+
+```
+
+### 第 107 场双周赛
+
+---
+
+[6892. 最大字符串配对数目](https://leetcode.cn/problems/find-maximum-number-of-string-pairs/)
+
+```js
+
+```
+
+[6895. 构造最长的新字符串](https://leetcode.cn/problems/construct-the-longest-new-string/)
+
+```js
+
+```
+
+[6898. 字符串连接删减字母](https://leetcode.cn/problems/decremental-string-concatenation/)
+
+```js
+
+```
+
+[6468. 统计没有收到请求的服务器数目](https://leetcode.cn/problems/count-zero-request-servers/)
+
+```js
+
+```
+
+### 第 351 场周赛
+
+---
+
+[2748. 美丽下标对的数目](https://leetcode.cn/problems/number-of-beautiful-pairs/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countBeautifulPairs = function (nums) {
+  const n = nums.length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    const str1 = nums[i].toString().split('')
+    const n1 = str1[0]
+    for (let j = i + 1; j < n; j++) {
+      const str2 = nums[j].toString().split('')
+      const n2 = str2[str2.length - 1]
+      if (gcd(n1, n2) == 1) ans++
+    }
+  }
+  return ans
+}
+const gcd = (a, b) => {
+  return b == 0 ? a : gcd(b, a % b)
+}
+```
+
+[6471. 得到整数零需要执行的最少操作数](https://leetcode.cn/problems/minimum-operations-to-make-the-integer-zero/)
+
+```js
+/**
+ * @param {number} num1
+ * @param {number} num2
+ * @return {number}
+ */
+var makeTheIntegerZero = function (num1, num2) {
+  for (let k = 1; k <= num1 - num2 * k; k++) {
+    if (k >= (num1 - num2 * k).toString(2).split('1').length - 1) return k
+  }
+  return -1
+}
+```
+
+[6910. 将数组划分成若干好子数组的方式](https://leetcode.cn/problems/ways-to-split-array-into-good-subarrays/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var numberOfGoodSubarraySplits = function (nums) {
+  const MOD = 1e9 + 7
+  const n = nums.length
+  let ans = 1
+  let pre = -1
+  for (let i = 0; i < n; i++) {
+    if (nums[i] == 0) continue
+    if (pre >= 0) ans = (ans * (i - pre)) % MOD
+    pre = i
+  }
+  return pre == -1 ? 0 : ans
+}
+```
+
+[6891. 机器人碰撞](https://leetcode.cn/problems/robot-collisions/)
 
 ```js
 
