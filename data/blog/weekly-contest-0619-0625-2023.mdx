@@ -43,19 +43,83 @@ bibliography: references-data.bib
 [6892. 最大字符串配对数目](https://leetcode.cn/problems/find-maximum-number-of-string-pairs/)
 
 ```js
-
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+var maximumNumberOfStringPairs = function (words) {
+  const n = words.length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    const word = words[i]
+    for (let j = i + 1; j < n; j++) {
+      if (word == words[j].split('').reverse().join('')) ans++
+    }
+  }
+  return ans
+}
 ```
 
 [6895. 构造最长的新字符串](https://leetcode.cn/problems/construct-the-longest-new-string/)
 
 ```js
-
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @return {number}
+ */
+var longestString = function (x, y, z) {
+  let ans = 0
+  if (x != y) {
+    ans += 2 * Math.min(x, y) + 1 + z
+  } else {
+    ans += x + y + z
+  }
+  return ans * 2
+}
 ```
 
 [6898. 字符串连接删减字母](https://leetcode.cn/problems/decremental-string-concatenation/)
 
 ```js
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+var minimizeConcatenatedLength = function (words) {
+  const n = words.length
+  const map = new Map()
+  const dfs = (i, j, k) => {
+    if (i == n) return 0
+    const key = [i, j, k].join('-')
+    if (map.has(key)) return map.get(key)
+    const w = words[i]
+    let res1 = dfs(i + 1, w[0], k) - (w[w.length - 1] == j ? 1 : 0)
+    let res2 = dfs(i + 1, j, w[w.length - 1]) - (w[0] == k ? 1 : 0)
+    map.set(key, Math.min(res1, res2) + w.length)
+    return Math.min(res1, res2) + w.length
+  }
+  const w = words[0]
+  return dfs(1, w[0], w[w.length - 1]) + w.length
+}
 
+var minimizeConcatenatedLength = function (words) {
+  const n = words.length
+  const map = new Map()
+  const dfs = (i, j) => {
+    const k = Math.max(i, j) + 1
+    if (k == n) return 0
+    const key = [i, j].join('-')
+    if (map.has(key)) return map.get(key)
+    const w = words[k]
+    let res1 = dfs(i, k) - (words[j][words[j].length - 1] == w[0] ? 1 : 0)
+    let res2 = dfs(k, j) - (w[w.length - 1] == words[i][0] ? 1 : 0)
+    map.set(key, Math.min(res1, res2) + w.length)
+    return Math.min(res1, res2) + w.length
+  }
+  return dfs(0, 0) + words[0].length
+}
 ```
 
 [6468. 统计没有收到请求的服务器数目](https://leetcode.cn/problems/count-zero-request-servers/)
