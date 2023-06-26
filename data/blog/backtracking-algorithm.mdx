@@ -1,0 +1,195 @@
+---
+title: 基础算法-回溯算法套路
+date: '2023-06-26'
+tags: ['算法', '回溯', '数组', '字符串']
+draft: false
+summary: '基础算法-回溯算法套路:1.子集型回溯 2.组合型回溯+剪枝 3.排列型回溯+N皇后'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 子集型回溯
+
+---
+
+[17. 电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)
+
+```js
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+  const mapping = [
+    '',
+    '',
+    'abc',
+    'def',
+    'ghi',
+    'jkl',
+    'mno',
+    'pqrs',
+    'tuv',
+    'wxyz'
+  ]
+  const n = digits.length
+  if (n == 0) return []
+  const path = []
+  const ans = []
+  const dfs = (i) => {
+    if (i == n) {
+      ans.push(path.join(''))
+      return
+    }
+    for (let c of mapping[digits[i]]) {
+      path.push(c)
+      dfs(i + 1)
+      path.pop()
+    }
+  }
+  dfs(0)
+  return ans
+}
+```
+
+[78. 子集](https://leetcode.cn/problems/subsets/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function (nums) {
+  const n = nums.length
+  const path = []
+  const ans = []
+  const dfs = (i) => {
+    if (i == n) {
+      ans.push([...path])
+      return
+    }
+    dfs(i + 1)
+    path.push(nums[i])
+    dfs(i + 1)
+    path.pop()
+  }
+  dfs(0)
+  return ans
+}
+
+var subsets = function (nums) {
+  const n = nums.length
+  const path = []
+  const ans = []
+  const dfs = (i) => {
+    ans.push([...path])
+    if (i == n) {
+      return
+    }
+    for (let j = i; j < n; j++) {
+      path.push(nums[j])
+      dfs(j + 1)
+      path.pop()
+    }
+  }
+  dfs(0)
+  return ans
+}
+```
+
+[131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/)
+
+```js
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+  const n = s.length
+  const path = []
+  const ans = []
+  const dfs = (i, start) => {
+    if (i == n) {
+      ans.push([...path])
+      return
+    }
+    if (i < n - 1) {
+      dfs(i + 1, start)
+    }
+    const str = s.substring(start, i + 1)
+    if (str == str.split('').reverse().join('')) {
+      path.push(str)
+      dfs(i + 1, i + 1)
+      path.pop()
+    }
+  }
+  dfs(0, 0)
+  return ans
+}
+
+var partition = function (s) {
+  const n = s.length
+  const path = []
+  const ans = []
+  const dfs = (i) => {
+    if (i == n) {
+      ans.push([...path])
+      return
+    }
+    for (let j = i; j < n; j++) {
+      const str = s.substring(i, j + 1)
+      if (str == str.split('').reverse().join('')) {
+        path.push(str)
+        dfs(j + 1)
+        path.pop()
+      }
+    }
+  }
+  dfs(0)
+  return ans
+}
+```
+
+[784. 字母大小写全排列](https://leetcode.cn/problems/letter-case-permutation/)
+
+```js
+
+```
+
+[1601. 最多可达成的换楼请求数目](https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests/)
+
+```js
+
+```
+
+[2397. 被列覆盖的最多行数](https://leetcode.cn/problems/maximum-rows-covered-by-columns/)
+
+```js
+
+```
+
+[306. 累加数](https://leetcode.cn/problems/additive-number/)
+
+```js
+
+```
+
+[2698. 求一个整数的惩罚数](https://leetcode.cn/problems/find-the-punishment-number-of-an-integer/)
+
+```js
+
+```
+
+---
+
+### 组合型回溯+剪枝
+
+---
+
+---
+
+### 排列型回溯+N 皇后
+
+---
+
+---
