@@ -23,11 +23,12 @@ export default class Aplayer extends React.Component {
       lrcType: 3,
       audio: [
         {
-          name: '光るなら',
-          artist: 'Goose house',
-          url: 'https://moeplayer.b0.upaiyun.com/aplayer/hikarunara.mp3',
-          cover: 'https://moeplayer.b0.upaiyun.com/aplayer/hikarunara.jpg',
-          lrc: 'https://moeplayer.b0.upaiyun.com/aplayer/hikarunara.lrc',
+          name: 'Beyond',
+          artist: 'Leo Ku',
+          url: 'http://music.163.com/song/media/outer/url?id=146401.mp3',
+          cover:
+            'http://p1.music.126.net/qx1i5iJrKsCf7zGv6FqikQ==/18885488369769708.jpg',
+          // lrc: 'https://moeplayer.b0.upaiyun.com/aplayer/hikarunara.lrc',
           theme: '#ebd0c2'
         }
       ]

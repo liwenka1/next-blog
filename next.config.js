@@ -52,6 +52,11 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()'
   }
+  // {
+  //   key: 'Content-Security-Policy',
+  //   value:
+  //     "default-src 'self'; img-src 'self' data: *; media-src 'self' data: *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+  // }
 ]
 
 /**
