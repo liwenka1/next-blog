@@ -153,7 +153,35 @@ var partition = function (s) {
 [784. 字母大小写全排列](https://leetcode.cn/problems/letter-case-permutation/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var letterCasePermutation = function (s) {
+  const n = s.length
+  const path = []
+  const ans = []
+  const dfs = (i) => {
+    if (i == n) {
+      ans.push(path.join(''))
+      return
+    }
+    path.push(s[i])
+    dfs(i + 1)
+    path.pop()
+    if (isNaN(s[i])) {
+      if (s[i] != s[i].toLocaleUpperCase()) {
+        path.push(s[i].toLocaleUpperCase())
+      } else {
+        path.push(s[i].toLocaleLowerCase())
+      }
+      dfs(i + 1)
+      path.pop()
+    }
+  }
+  dfs(0)
+  return ans
+}
 ```
 
 [1601. 最多可达成的换楼请求数目](https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests/)
