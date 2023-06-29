@@ -3,7 +3,7 @@ title: 0626-0702 每日一题
 date: '2023-06-26'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.2485. 找出中枢整数 2.1186. 删除一次得到子数组最大和 3.1681. 最小不兼容性'
+summary: '1.2485. 找出中枢整数 2.1186. 删除一次得到子数组最大和 3.1681. 最小不兼容性 4.1253. 重构 2 行二进制矩阵'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -88,6 +88,38 @@ var maximumSum = function (arr) {
 
 ```js
 
+```
+
+[1253. 重构 2 行二进制矩阵](https://leetcode.cn/problems/reconstruct-a-2-row-binary-matrix/)
+
+```js
+/**
+ * @param {number} upper
+ * @param {number} lower
+ * @param {number[]} colsum
+ * @return {number[][]}
+ */
+var reconstructMatrix = function (upper, lower, colsum) {
+  const n = colsum.length
+  let ans = new Array(2).fill().map(() => new Array(n).fill(0))
+  for (let i = 0; i < n; i++) {
+    if (colsum[i] == 2) {
+      ans[0][i]++
+      ans[1][i]++
+      upper--
+      lower--
+    } else if (colsum[i] == 1) {
+      if (upper > lower) {
+        ans[0][i]++
+        upper--
+      } else {
+        ans[1][i]++
+        lower--
+      }
+    }
+  }
+  return lower == 0 && upper == 0 ? ans : []
+}
 ```
 
 ---
