@@ -214,6 +214,98 @@ var letterCasePermutation = function (s) {
 
 ---
 
+[77. 组合](https://leetcode.cn/problems/combinations/)
+
+```js
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function (n, k) {
+  const path = []
+  const ans = []
+  const dfs = (i) => {
+    if (path.length == k) {
+      ans.push([...path])
+      return
+    }
+    for (let j = i; j >= k - path.length; j--) {
+      path.push(j)
+      dfs(j - 1)
+      path.pop()
+    }
+  }
+  dfs(n)
+  return ans
+}
+```
+
+[216. 组合总和 III](https://leetcode.cn/problems/combination-sum-iii/)
+
+```js
+/**
+ * @param {number} k
+ * @param {number} n
+ * @return {number[][]}
+ */
+var combinationSum3 = function (k, n) {
+  const path = []
+  const ans = []
+  const dfs = (i, m) => {
+    if (path.length == k) {
+      if (i == 0) ans.push([...path])
+      return
+    }
+    for (let j = m; j <= 9; j++) {
+      path.push(j)
+      dfs(i - j, j + 1)
+      path.pop()
+    }
+  }
+  dfs(n, 1)
+  return ans
+}
+```
+
+[22. 括号生成](https://leetcode.cn/problems/generate-parentheses/)
+
+```js
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function (n) {
+  const path = []
+  const ans = []
+  const m = 2 * n
+  const dfs = (i, j) => {
+    if (i == 0) {
+      ans.push(path.join(''))
+      return
+    }
+    if (j > 0) {
+      path.push('(')
+      dfs(i - 1, j - 1)
+      path.pop()
+    }
+    if (i - j > j) {
+      path.push(')')
+      dfs(i - 1, j)
+      path.pop()
+    }
+  }
+  dfs(m, n)
+  return ans
+}
+```
+
+[301. 删除无效的括号](https://leetcode.cn/problems/remove-invalid-parentheses/)
+
+```js
+
+```
+
 ---
 
 ### 排列型回溯+N 皇后
