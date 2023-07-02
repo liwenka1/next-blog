@@ -1,0 +1,98 @@
+---
+title: 0626-0702 周赛
+date: '2023-07-02'
+tags: ['算法', '周赛', 'LeetCode']
+draft: false
+summary: '1.第 352 场周赛'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 第 352 场周赛
+
+---
+
+[6909. 最长奇偶子数组](https://leetcode.cn/problems/longest-even-odd-subarray-with-threshold/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} threshold
+ * @return {number}
+ */
+var longestAlternatingSubarray = function (nums, threshold) {
+  const n = nums.length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    if (nums[i] % 2 == 0 && nums[i] <= threshold) {
+      let temp = 1
+      for (let j = i + 1; j < n; j++) {
+        if (nums[j] <= threshold && nums[j - 1] % 2 != nums[j] % 2) {
+          temp++
+        } else {
+          break
+        }
+      }
+      ans = Math.max(ans, temp)
+    }
+  }
+  return ans
+}
+```
+
+[6916. 和等于目标值的质数对](https://leetcode.cn/problems/prime-pairs-with-target-sum/)
+
+```js
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var findPrimePairs = function (n) {
+  const ans = []
+  for (let i = 2; i <= n / 2; i++) {
+    if (isPrime(i) && isPrime(n - i)) {
+      ans.push([i, n - i])
+    }
+  }
+  return ans
+}
+const isPrime = (n) => {
+  for (let i = 2; i * i <= n; i++) {
+    if (n % i == 0) return false
+  }
+  return n >= 2
+}
+```
+
+[6911. 不间断子数组](https://leetcode.cn/problems/continuous-subarrays/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var continuousSubarrays = function (nums) {
+  let ans = 0
+  const map = new Map()
+  let left = 0
+  const n = nums.length
+  for (let right = 0; right < n; right++) {
+    map.set(nums[right], (map.get(nums[right]) || 0) + 1)
+    while (Math.max(...map.keys()) - Math.min(...map.keys()) > 2) {
+      map.set(nums[left], map.get(nums[left]) - 1)
+      if (map.get(nums[left]) == 0) map.delete(nums[left])
+      left++
+    }
+    ans += right - left + 1
+  }
+  return ans
+}
+```
+
+[6894. 所有子数组中不平衡数字之和](https://leetcode.cn/problems/sum-of-imbalance-numbers-of-all-subarrays/)
+
+```js
+
+```
+
+---
