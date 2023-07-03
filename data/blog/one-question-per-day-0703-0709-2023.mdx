@@ -1,0 +1,64 @@
+---
+title: 0703-0709 每日一题
+date: '2023-07-03'
+tags: ['算法', '每日一题', 'LeetCode']
+draft: false
+summary: '1.445. 两数相加 II'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+---
+
+[445. 两数相加 II](https://leetcode.cn/problems/add-two-numbers-ii/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function (l1, l2) {
+  l1 = reverseList(l1)
+  l2 = reverseList(l2)
+  let head = (tail = new ListNode())
+  let cnt = 0
+  while (l1 || l2) {
+    const n1 = l1 ? l1.val : 0
+    const n2 = l2 ? l2.val : 0
+    const sum = n1 + n2 + cnt
+    tail.next = new ListNode(sum % 10)
+    tail = tail.next
+    cnt = Math.floor(sum / 10)
+    if (l1) {
+      l1 = l1.next
+    }
+    if (l2) {
+      l2 = l2.next
+    }
+  }
+  if (cnt > 0) {
+    tail.next = new ListNode(cnt)
+  }
+  return reverseList(head.next)
+}
+
+const reverseList = (head) => {
+  if (head == null || head.next == null) {
+    return head
+  }
+  const newHead = reverseList(head.next)
+  head.next.next = head
+  head.next = null
+  return newHead
+}
+```
+
+---
