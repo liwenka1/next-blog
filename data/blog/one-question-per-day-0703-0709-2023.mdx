@@ -3,7 +3,7 @@ title: 0703-0709 每日一题
 date: '2023-07-03'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.445. 两数相加 II 2.2679. 矩阵中的和 3.2178. 拆分成最多数目的正偶数之和'
+summary: '1.445. 两数相加 II 2.2679. 矩阵中的和 3.2600. K 件物品的最大和 4.2178. 拆分成最多数目的正偶数之和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -83,6 +83,27 @@ var matrixSum = function (nums) {
     ans += max
   }
   return ans
+}
+```
+
+[2600. K 件物品的最大和](https://leetcode.cn/problems/k-items-with-the-maximum-sum/)
+
+```js
+/**
+ * @param {number} numOnes
+ * @param {number} numZeros
+ * @param {number} numNegOnes
+ * @param {number} k
+ * @return {number}
+ */
+var kItemsWithMaximumSum = function (numOnes, numZeros, numNegOnes, k) {
+  if (k <= numOnes) {
+    return k
+  } else if (numOnes + numZeros >= k) {
+    return numOnes
+  } else {
+    return numOnes - (k - numOnes - numZeros)
+  }
 }
 ```
 
