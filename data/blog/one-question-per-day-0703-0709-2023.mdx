@@ -3,7 +3,7 @@ title: 0703-0709 每日一题
 date: '2023-07-03'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.445. 两数相加 II 2.2679. 矩阵中的和 3.2600. K 件物品的最大和 4.2178. 拆分成最多数目的正偶数之和 5.2532. 过桥的时间'
+summary: '1.445. 两数相加 II 2.2679. 矩阵中的和 3.2600. K 件物品的最大和 4.2178. 拆分成最多数目的正偶数之和 5.2532. 过桥的时间 6.167. 两数之和 II - 输入有序数组'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -130,6 +130,26 @@ var maximumEvenSplit = function (finalSum) {
 
 ```js
 
+```
+
+[167. 两数之和 II - 输入有序数组](https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/)
+
+```js
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (numbers, target) {
+  let left = 0
+  let right = numbers.length - 1
+  while (left < right) {
+    let sum = numbers[left] + numbers[right]
+    if (sum > target) right--
+    else if (sum < target) left++
+    else return [left + 1, right + 1]
+  }
+}
 ```
 
 ---
