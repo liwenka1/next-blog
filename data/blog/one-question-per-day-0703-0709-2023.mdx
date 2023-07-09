@@ -3,7 +3,7 @@ title: 0703-0709 每日一题
 date: '2023-07-03'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.445. 两数相加 II 2.2679. 矩阵中的和 3.2600. K 件物品的最大和 4.2178. 拆分成最多数目的正偶数之和 5.2532. 过桥的时间 6.167. 两数之和 II - 输入有序数组'
+summary: '1.445. 两数相加 II 2.2679. 矩阵中的和 3.2600. K 件物品的最大和 4.2178. 拆分成最多数目的正偶数之和 5.2532. 过桥的时间 6.167. 两数之和 II - 输入有序数组 7.15. 三数之和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -149,6 +149,42 @@ var twoSum = function (numbers, target) {
     else if (sum < target) left++
     else return [left + 1, right + 1]
   }
+}
+```
+
+[15. 三数之和](https://leetcode.cn/problems/3sum/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  let ans = []
+  for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue
+    if (nums[i] + nums[i + 1] + nums[i + 2] > 0) break
+    if (nums[n] + nums[n - 1] + nums[n - 2] < 0) continue
+    let left = i + 1
+    let right = n - 1
+    while (left < right) {
+      let sum = nums[i] + nums[left] + nums[right]
+      if (sum > 0) {
+        right--
+      } else if (sum < 0) {
+        left++
+      } else {
+        ans.push([nums[i], nums[left], nums[right]])
+        right--
+        while (nums[right] == nums[right + 1]) right--
+        left++
+        while (nums[left] == nums[left - 1]) left++
+      }
+    }
+  }
+  return ans
 }
 ```
 
