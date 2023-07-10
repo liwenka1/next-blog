@@ -1,0 +1,47 @@
+---
+title: 0710-0716 每日一题
+date: '2023-07-10'
+tags: ['算法', '每日一题', 'LeetCode']
+draft: false
+summary: '1.16. 最接近的三数之和'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+---
+
+[16. 最接近的三数之和](https://leetcode.cn/problems/3sum-closest/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function (nums, target) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  let ans1 = Infinity,
+    ans2 = Infinity
+  for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue
+    let left = i + 1
+    let right = n - 1
+    while (left < right) {
+      let sum = nums[i] + nums[left] + nums[right] - target
+      if (sum > 0) {
+        right--
+        ans1 = Math.min(ans1, sum)
+      } else if (sum < 0) {
+        left++
+        ans2 = Math.min(ans2, -sum)
+      } else {
+        return target
+      }
+    }
+  }
+  return ans1 > ans2 ? -ans2 + target : ans1 + target
+}
+```
+
+---
