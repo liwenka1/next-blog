@@ -3,7 +3,7 @@ title: 0710-0716 每日一题
 date: '2023-07-10'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.16. 最接近的三数之和'
+summary: '1.16. 最接近的三数之和 2.1911. 最大子序列交替和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -41,6 +41,25 @@ var threeSumClosest = function (nums, target) {
     }
   }
   return ans1 > ans2 ? -ans2 + target : ans1 + target
+}
+```
+
+[1911. 最大子序列交替和](https://leetcode.cn/problems/maximum-alternating-subsequence-sum/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxAlternatingSum = function (nums) {
+  let ans = 0
+  const n = nums.length
+  for (let i = 1; i < n; i++) {
+    if (nums[i] < nums[i - 1]) {
+      ans += nums[i - 1] - nums[i]
+    }
+  }
+  return (ans += nums[n - 1])
 }
 ```
 
