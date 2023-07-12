@@ -3,7 +3,7 @@ title: 0710-0716 每日一题
 date: '2023-07-10'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.16. 最接近的三数之和 2.1911. 最大子序列交替和'
+summary: '1.16. 最接近的三数之和 2.1911. 最大子序列交替和 3.2544. 交替数字和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -60,6 +60,25 @@ var maxAlternatingSum = function (nums) {
     }
   }
   return (ans += nums[n - 1])
+}
+```
+
+[2544. 交替数字和](https://leetcode.cn/problems/alternating-digit-sum/)
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var alternateDigitSum = function (n) {
+    let ans = 0, sign = 1
+    while (n > 0) {
+        ans += n % 10 * sign
+        sign = -sign
+        n = Math.floor(n / 10)
+    }
+    return ans * -sign
+};eturn (ans += nums[n - 1])
 }
 ```
 
