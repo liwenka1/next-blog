@@ -24,7 +24,7 @@ var addStrings = function (num1, num2) {
   let ans = ''
   let i = num1.length - 1
   let j = num2.length - 1
-  while (i >= 0 || j >= 0) {
+  while (i >= 0 && j >= 0) {
     let n1 = num1[i] ? num1[i] : 0
     let n2 = num2[j] ? num2[j] : 0
     let sum = Number(n1) + Number(n2) + diff
@@ -33,11 +33,12 @@ var addStrings = function (num1, num2) {
     i--
     j--
   }
-  while (j >= 0) {
-    let n2 = num2[j] ? num2[j] : 0
-    let sum = Number(n2) + diff
+  while (i >= 0) {
+    let n1 = num1[i] ? num1[i] : 0
+    let sum = Number(n1) + diff
     ans = (sum % 10) + ans
     diff = Math.floor(sum / 10)
+    i--
   }
   if (diff == 1) ans = diff + ans
   return ans
