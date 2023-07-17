@@ -3,7 +3,7 @@ title: 0710-0716 每日一题
 date: '2023-07-10'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.16. 最接近的三数之和 2.1911. 最大子序列交替和 3.2544. 交替数字和 4.931. 下降路径最小和 5.979. 在二叉树中分配硬币'
+summary: '1.16. 最接近的三数之和 2.1911. 最大子序列交替和 3.2544. 交替数字和 4.931. 下降路径最小和 5.979. 在二叉树中分配硬币 6.18. 四数之和 7.834. 树中距离之和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -135,6 +135,55 @@ var distributeCoins = function (root) {
   dfs(root)
   return ans
 }
+```
+
+[18. 四数之和](https://leetcode.cn/problems/4sum/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+var fourSum = function (nums, target) {
+  nums.sort((a, b) => a - b)
+  let n = nums.length
+  if (n < 4) return []
+  let ans = []
+  for (let j = 0; j < n - 3; j++) {
+    if (j > 0 && nums[j] == nums[j - 1]) continue
+    if (nums[j] + nums[j + 1] + nums[j + 2] + nums[j + 3] > target) break
+    if (nums[j] + nums[n - 1] + nums[n - 2] + nums[n - 3] < target) continue
+    for (let i = j + 1; i < n - 2; i++) {
+      if (i > j + 1 && nums[i] == nums[i - 1]) continue
+      if (nums[j] + nums[i] + nums[i + 1] + nums[i + 2] > target) break
+      if (nums[j] + nums[i] + nums[n - 1] + nums[n - 2] < target) continue
+      let left = i + 1
+      let right = n - 1
+      while (left < right) {
+        let sum = nums[j] + nums[i] + nums[left] + nums[right]
+        if (sum > target) {
+          right--
+        } else if (sum < target) {
+          left++
+        } else {
+          ans.push([nums[j], nums[i], nums[left], nums[right]])
+          right--
+          while (nums[right] == nums[right + 1]) right--
+          left++
+          while (nums[left] == nums[left - 1]) left++
+        }
+      }
+    }
+  }
+  return ans
+}
+```
+
+[834. 树中距离之和](https://leetcode.cn/problems/sum-of-distances-in-tree/)
+
+```js
+
 ```
 
 ---
