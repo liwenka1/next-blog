@@ -45,13 +45,37 @@ bibliography: references-data.bib
 [2769. 找出最大的可达成数字](https://leetcode.cn/problems/find-the-maximum-achievable-number/)
 
 ```js
-
+/**
+ * @param {number} num
+ * @param {number} t
+ * @return {number}
+ */
+var theMaximumAchievableX = function (num, t) {
+  return num + t * 2
+}
 ```
 
 [2770. 达到末尾下标所需的最大跳跃次数](https://leetcode.cn/problems/maximum-number-of-jumps-to-reach-the-last-index/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var maximumJumps = function (nums, target) {
+  const n = nums.length
+  const dp = new Array(n).fill(-Infinity)
+  dp[0] = 0
+  for (let i = 1; i < n; i++) {
+    for (let j = 0; j < i; j++) {
+      if (Math.abs(nums[i] - nums[j]) <= target) {
+        dp[i] = Math.max(dp[i], dp[j] + 1)
+      }
+    }
+  }
+  return dp[n - 1] < 0 ? -1 : dp[n - 1]
+}
 ```
 
 [2771. 构造最长非递减子数组](https://leetcode.cn/problems/longest-non-decreasing-subarray-from-two-arrays/)
