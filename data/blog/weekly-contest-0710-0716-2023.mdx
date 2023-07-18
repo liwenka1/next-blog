@@ -15,19 +15,79 @@ bibliography: references-data.bib
 [6889. 特殊元素平方和](https://leetcode.cn/problems/sum-of-squares-of-special-elements/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var sumOfSquares = function (nums) {
+  const n = nums.length
+  let ans = 0
+  for (let i = 1; i ** 2 <= n; i++) {
+    if (n % i == 0) {
+      ans += nums[i - 1] ** 2
+      if (i ** 2 < n) {
+        ans += nums[n / i - 1] ** 2
+      }
+    }
+  }
+  return ans
+}
 ```
 
 [6929. 数组的最大美丽值](https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maximumBeauty = function (nums, k) {
+  nums.sort((a, b) => a - b)
+  let left = 0,
+    right = 0
+  let ans = 0
+  const n = nums.length
+  while (right < n) {
+    if (nums[right] - nums[left] <= k * 2) {
+      right++
+      ans = Math.max(ans, right - left)
+    } else {
+      left++
+    }
+  }
+  return ans
+}
 ```
 
 [6927. 合法分割的最小下标](https://leetcode.cn/problems/minimum-index-of-a-valid-split/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minimumIndex = function (nums) {
+  const map = new Map()
+  const n = nums.length
+  let k = 0,
+    total = 0
+  for (let num of nums) {
+    map.set(num, (map.get(num) || 0) + 1)
+    if (map.get(num) > total) {
+      total = map.get(num)
+      k = num
+    }
+  }
+  let cnt = 0
+  for (let i = 0; i < n; i++) {
+    if (nums[i] == k) {
+      cnt++
+      if (cnt * 2 > i + 1 && (total - cnt) * 2 > n - i - 1) return i
+    }
+  }
+  return -1
+}
 ```
 
 [6924. 最长合法子字符串的长度](https://leetcode.cn/problems/length-of-the-longest-valid-substring/)
@@ -37,4 +97,3 @@ bibliography: references-data.bib
 ```
 
 ---
-
