@@ -12,25 +12,83 @@ bibliography: references-data.bib
 
 ---
 
-[2769. 找出最大的可达成数字](https://leetcode.cn/problems/find-the-maximum-achievable-number/)
+[2765. 最长交替子序列](https://leetcode.cn/problems/longest-alternating-subarray/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var alternatingSubarray = function (nums) {
+  const n = nums.length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    if (i > 1 && nums[i] == nums[i - 2] && nums[i + 1] == nums[i - 1]) continue
+    let cnt = 1
+    for (let j = i + 1; j < n; j++) {
+      if ((j - i) % 2 != 0 && nums[j] == nums[i] + 1) {
+        cnt++
+      } else if ((j - i) % 2 == 0 && nums[j] == nums[i]) {
+        cnt++
+      } else {
+        break
+      }
+    }
+    ans = Math.max(ans, cnt)
+  }
+  return ans == 1 ? -1 : ans
+}
 ```
 
-[2770. 达到末尾下标所需的最大跳跃次数](https://leetcode.cn/problems/maximum-number-of-jumps-to-reach-the-last-index/)
+[2766. 重新放置石块](https://leetcode.cn/problems/relocate-marbles/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @param {number[]} moveFrom
+ * @param {number[]} moveTo
+ * @return {number[]}
+ */
+var relocateMarbles = function (nums, moveFrom, moveTo) {
+  const set = new Set(nums)
+  const n = moveFrom.length
+  for (let i = 0; i < n; i++) {
+    set.delete(moveFrom[i])
+    set.add(moveTo[i])
+  }
+  return Array.from(set).sort((a, b) => a - b)
+}
 ```
 
-[2771. 构造最长非递减子数组](https://leetcode.cn/problems/longest-non-decreasing-subarray-from-two-arrays/)
+[2767. 将字符串分割为最少的美丽子字符串](https://leetcode.cn/problems/partition-string-into-minimum-beautiful-substrings/)
 
 ```js
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minimumBeautifulSubstrings = function (s) {
+  const pow5 = []
+  for (let i = 0; i < 7; i++) {
+    pow5.push((5 ** i).toString(2))
+  }
+  const n = s.length
+  const dp = new Array(n + 1).fill(Infinity)
+  dp[n] = 0
+  for (let i = n - 1; i >= 0; i--) {
+    if (s[i] == 0) continue
+    for (let pow of pow5) {
+      if (i + pow.length > n) break
+      if (s.substring(i, i + pow.length) == pow) {
+        dp[i] = Math.min(dp[i], dp[i + pow.length] + 1)
+      }
+    }
+  }
+  return dp[0] == Infinity ? -1 : dp[0]
+}
 ```
 
-[2772. 使数组中的所有元素都等于零](https://leetcode.cn/problems/apply-operations-to-make-all-array-elements-equal-to-zero/)
+[2768. 黑格子的数目](https://leetcode.cn/problems/number-of-black-blocks/)
 
 ```js
 
