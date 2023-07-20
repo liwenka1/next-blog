@@ -3,7 +3,7 @@ title: 0717-0723 每日一题
 date: '2023-07-17'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.415. 字符串相加 2.1851. 包含每个查询的最小区间 3.874. 模拟行走机器人'
+summary: '1.415. 字符串相加 2.1851. 包含每个查询的最小区间 3.874. 模拟行走机器人 4.918. 环形子数组的最大和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -87,6 +87,27 @@ var robotSim = function (commands, obstacles) {
     }
   }
   return ans
+}
+```
+
+[918. 环形子数组的最大和](https://leetcode.cn/problems/maximum-sum-circular-subarray/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubarraySumCircular = function (nums) {
+  const n = nums.length
+  let sum = (max = min = maxSum = minSum = nums[0])
+  for (let i = 1; i < n; i++) {
+    sum += nums[i]
+    min = Math.min(nums[i], min + nums[i])
+    minSum = Math.min(minSum, min)
+    max = Math.max(nums[i], max + nums[i])
+    maxSum = Math.max(maxSum, max)
+  }
+  return maxSum < 0 ? maxSum : Math.max(maxSum, sum - minSum)
 }
 ```
 
