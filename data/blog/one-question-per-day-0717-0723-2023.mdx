@@ -114,7 +114,28 @@ var maxSubarraySumCircular = function (nums) {
 [1499. 满足不等式的最大值](https://leetcode.cn/problems/max-value-of-equation/)
 
 ```js
-
+/**
+ * @param {number[][]} points
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxValueOfEquation = function (points, k) {
+  const queue = []
+  let ans = -Infinity
+  for (let [x, y] of points) {
+    while (queue.length && queue[0][0] < x - k) {
+      queue.shift()
+    }
+    if (queue.length) {
+      ans = Math.max(ans, x + y + queue[0][1])
+    }
+    while (queue.length && queue[queue.length - 1][1] <= y - x) {
+      queue.pop()
+    }
+    queue.push([x, y - x])
+  }
+  return ans
+}
 ```
 
 ---
