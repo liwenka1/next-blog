@@ -3,7 +3,7 @@ title: 0717-0723 每日一题
 date: '2023-07-17'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.415. 字符串相加 2.1851. 包含每个查询的最小区间 3.874. 模拟行走机器人 4.918. 环形子数组的最大和 5.1499. 满足不等式的最大值 6.860. 柠檬水找零'
+summary: '1.415. 字符串相加 2.1851. 包含每个查询的最小区间 3.874. 模拟行走机器人 4.918. 环形子数组的最大和 5.1499. 满足不等式的最大值 6.860. 柠檬水找零 7.42. 接雨水'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -163,6 +163,35 @@ var lemonadeChange = function (bills) {
     if (five < 0) return false
   }
   return true
+}
+```
+
+[1851. 包含每个查询的最小区间](https://leetcode.cn/problems/minimum-interval-to-include-each-query/)
+
+```js
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+  let n = height.length
+  let ans = 0
+  let left = 0,
+    right = n - 1
+  let pre_max = 0,
+    suf_max = 0
+  while (left < right) {
+    pre_max = Math.max(pre_max, height[left])
+    suf_max = Math.max(suf_max, height[right])
+    if (pre_max < suf_max) {
+      ans += pre_max - height[left]
+      left++
+    } else {
+      ans += suf_max - height[right]
+      right--
+    }
+  }
+  return ans
 }
 ```
 
