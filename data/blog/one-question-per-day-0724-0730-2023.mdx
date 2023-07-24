@@ -1,0 +1,31 @@
+---
+title: 0724-0730 每日一题
+date: '2023-07-24'
+tags: ['算法', '每日一题', 'LeetCode']
+draft: false
+summary: '1.771. 宝石与石头'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+---
+
+[771. 宝石与石头](https://leetcode.cn/problems/jewels-and-stones/)
+
+```js
+/**
+ * @param {string} jewels
+ * @param {string} stones
+ * @return {number}
+ */
+var numJewelsInStones = function (jewels, stones) {
+  const set = new Set(jewels)
+  let ans = 0
+  for (let stone of stones) {
+    if (set.has(stone)) ans++
+  }
+  return ans
+}
+```
+
+---
