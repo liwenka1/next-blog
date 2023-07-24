@@ -1,0 +1,134 @@
+---
+title: 0717-0723 周赛
+date: '2023-07-23'
+tags: ['算法', '周赛', 'LeetCode']
+draft: false
+summary: '1.第 109 场双周赛 2.第 355 场周赛'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 第 109 场双周赛
+
+---
+
+[2784. 检查数组是否是好的](https://leetcode.cn/problems/check-if-array-is-good/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var isGood = function (nums) {
+  const max = Math.max(...nums)
+  const n = nums.length
+  if (max != n - 1) return false
+  nums.sort((a, b) => a - b)
+  for (let i = 0; i < n - 1; i++) {
+    if (nums[i] != i + 1) return false
+  }
+  return true
+}
+```
+
+[6926. 将字符串中的元音字母排序](https://leetcode.cn/problems/sort-vowels-in-a-string/)
+
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var sortVowels = function (s) {
+  s = s.split('')
+  const path = s.filter((i) => /[aeiouAEIOU]/.test(i)).sort()
+  const n = s.length
+  for (let i = 0, j = 0; i < n; i++) {
+    if (/[aeiouAEIOU]/.test(s[i])) {
+      s[i] = path[j]
+      j++
+    }
+  }
+  return s.join('')
+}
+```
+
+[6931. 访问数组中的位置使分数最大](https://leetcode.cn/problems/visit-array-positions-to-maximize-score/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var maxScore = function (nums, x) {
+  let f0 = (f1 = ans = -Infinity)
+  const n = nums.length
+  if (nums[0] % 2) f1 = nums[0]
+  else f0 = nums[0]
+  for (let i = 1; i < n; i++) {
+    if (nums[i] % 2) f1 = Math.max(f1 + nums[i], f0 + nums[i] - x)
+    else f0 = Math.max(f0 + nums[i], f1 + nums[i] - x)
+    ans = Math.max(ans, f0, f1)
+  }
+  return ans
+}
+```
+
+[6922. 将一个数字表示成幂的和的方案数](https://leetcode.cn/problems/ways-to-express-an-integer-as-sum-of-powers/)
+
+```js
+
+```
+
+---
+
+### 第 355 场周赛
+
+---
+
+[6921. 按分隔符拆分字符串](https://leetcode.cn/problems/split-strings-by-separator/)
+
+```js
+/**
+ * @param {string[]} words
+ * @param {character} separator
+ * @return {string[]}
+ */
+var splitWordsBySeparator = function (words, separator) {
+  return words
+    .map((word) => word.split(separator))
+    .flat()
+    .filter((i) => i != '')
+}
+```
+
+[2789. 合并后数组中的最大元素](https://leetcode.cn/problems/largest-element-in-an-array-after-merge-operations/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxArrayValue = function (nums) {
+  let ans = nums.pop()
+  while (nums.length) {
+    const pop = nums.pop()
+    ans = ans >= pop ? ans + pop : pop
+  }
+  return ans
+}
+```
+
+[6955. 长度递增组的最大数目](https://leetcode.cn/problems/maximum-number-of-groups-with-increasing-length/)
+
+```js
+
+```
+
+[6942. 树中可以形成回文的路径数](https://leetcode.cn/problems/count-paths-that-can-form-a-palindrome-in-a-tree/)
+
+```js
+
+```
+
+---
