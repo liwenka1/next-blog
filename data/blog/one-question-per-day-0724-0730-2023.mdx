@@ -3,7 +3,7 @@ title: 0724-0730 每日一题
 date: '2023-07-24'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.771. 宝石与石头 2.2208. 将数组和减半的最少操作次数 3.2569. 更新数组后处理求和查询'
+summary: '1.771. 宝石与石头 2.2208. 将数组和减半的最少操作次数 3.2569. 更新数组后处理求和查询 4.2500. 删除每行中的最大值'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -38,6 +38,31 @@ var numJewelsInStones = function (jewels, stones) {
 
 ```js
 
+```
+
+[2500. 删除每行中的最大值](https://leetcode.cn/problems/delete-greatest-value-in-each-row/)
+
+```js
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var deleteGreatestValue = function (grid) {
+  for (let g of grid) {
+    g.sort((a, b) => a - b)
+  }
+  const m = grid.length
+  const n = grid[0].length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    let mx = 0
+    for (let j = 0; j < m; j++) {
+      mx = Math.max(mx, grid[j][i])
+    }
+    ans += mx
+  }
+  return ans
+}
 ```
 
 ---
