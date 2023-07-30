@@ -1,0 +1,113 @@
+---
+title: 0723-0730 周赛
+date: '2023-07-30'
+tags: ['算法', '周赛', 'LeetCode']
+draft: false
+summary: '1.第 356 场周赛'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 第 356 场周赛
+
+---
+
+[6917. 满足目标工作时长的员工数目](https://leetcode.cn/problems/number-of-employees-who-met-the-target/)
+
+```js
+/**
+ * @param {number[]} hours
+ * @param {number} target
+ * @return {number}
+ */
+var numberOfEmployeesWhoMetTarget = function (hours, target) {
+  let ans = 0
+  for (let hour of hours) {
+    if (hour >= target) ans++
+  }
+  return ans
+}
+```
+
+[6900. 统计完全子数组的数目](https://leetcode.cn/problems/count-complete-subarrays-in-an-array/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countCompleteSubarrays = function (nums) {
+  const m = new Set(nums).size
+  const map = new Map()
+  let left = 0
+  let ans = 0
+  for (let num of nums) {
+    ans += left
+    map.set(num, (map.get(num) || 0) + 1)
+    while (map.size == m) {
+      ans++
+      const x = nums[left]
+      map.set(x, map.get(x) - 1)
+      if (map.get(x) == 0) {
+        map.delete(x)
+      }
+      left++
+    }
+  }
+  return ans
+}
+```
+
+---
+
+[6918. 包含三个字符串的最短字符串](https://leetcode.cn/problems/shortest-string-that-contains-three-strings/)
+
+```js
+/**
+ * @param {string} a
+ * @param {string} b
+ * @param {string} c
+ * @return {string}
+ */
+var minimumString = function (a, b, c) {
+  const str = [
+    [a, b, c],
+    [a, c, b],
+    [b, a, c],
+    [b, c, a],
+    [c, a, b],
+    [c, b, a]
+  ]
+  let ans = ''
+  for (let [a, b, c] of str) {
+    const x = merge(merge(a, b), c)
+    if (
+      ans.length == 0 ||
+      x.length < ans.length ||
+      (x.length == ans.length && x.localeCompare(ans) == -1)
+    )
+      ans = x
+  }
+  return ans
+}
+/**
+ * @param {string} s
+ * @param {string} t
+ */
+const merge = (s, t) => {
+  if (s.includes(t)) return s
+  if (t.includes(s)) return t
+  for (let i = Math.min(s.length, t.length); i >= 0; i--) {
+    if (s.substring(s.length - i) === t.substring(0, i)) {
+      return s + t.substring(i)
+    }
+  }
+  return s + t
+}
+```
+
+[6957. 统计范围内的步进数字数目](https://leetcode.cn/problems/count-stepping-numbers-in-range/)
+
+```js
+
+```

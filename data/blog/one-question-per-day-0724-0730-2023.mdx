@@ -3,7 +3,7 @@ title: 0724-0730 每日一题
 date: '2023-07-24'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.771. 宝石与石头 2.2208. 将数组和减半的最少操作次数 3.2569. 更新数组后处理求和查询 4.2500. 删除每行中的最大值 5.2050. 并行课程 III 6.141. 环形链表'
+summary: '1.771. 宝石与石头 2.2208. 将数组和减半的最少操作次数 3.2569. 更新数组后处理求和查询 4.2500. 删除每行中的最大值 5.2050. 并行课程 III 6.141. 环形链表 7.142. 环形链表 II'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -95,6 +95,39 @@ var hasCycle = function (head) {
     if (slow == fast) return true
   }
   return false
+}
+```
+
+[142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow == fast) {
+      while (slow != head) {
+        slow = slow.next
+        head = head.next
+      }
+      return slow
+    }
+  }
+  return null
 }
 ```
 
