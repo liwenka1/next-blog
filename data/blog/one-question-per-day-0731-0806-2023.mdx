@@ -1,0 +1,63 @@
+---
+title: 0731-0805 每日一题
+date: '2023-07-31'
+tags: ['算法', '每日一题', 'LeetCode']
+draft: false
+summary: '1.143. 重排链表'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+---
+
+[143. 重排链表](https://leetcode.cn/problems/reorder-list/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+
+var reorderList = function (head) {
+  let mid = midList(head)
+  let reMid = reverseList(mid)
+  while (reMid.next) {
+    let nxt = head.next
+    let reMidNxt = reMid.next
+    head.next = reMid
+    reMid.next = nxt
+    head = nxt
+    reMid = reMidNxt
+  }
+}
+
+const midList = (head) => {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  return slow
+}
+
+const reverseList = (head) => {
+  let pre = null
+  while (head) {
+    let nxt = head.next
+    head.next = pre
+    pre = head
+    head = nxt
+  }
+  return pre
+}
+```
+
+---
