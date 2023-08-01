@@ -3,7 +3,7 @@ title: 0731-0805 每日一题
 date: '2023-07-31'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表'
+summary: '1.143. 重排链表 2.2681. 英雄的力量'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -57,6 +57,26 @@ const reverseList = (head) => {
     head = nxt
   }
   return pre
+}
+```
+
+[2681. 英雄的力量](https://leetcode.cn/problems/power-of-heroes/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var sumOfPower = function (nums) {
+  nums.sort((a, b) => a - b)
+  const MOD = 1e9 + 7
+  let s = (ans = 0)
+  for (let x of nums) {
+    const bx = BigInt(x)
+    ans += Number((bx * bx * (bx + BigInt(s))) % BigInt(MOD))
+    s = (2 * s + x) % MOD
+  }
+  return ans % MOD
 }
 ```
 
