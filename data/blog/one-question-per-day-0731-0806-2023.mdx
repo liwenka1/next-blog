@@ -3,7 +3,7 @@ title: 0731-0805 每日一题
 date: '2023-07-31'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.2681. 英雄的力量'
+summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -77,6 +77,29 @@ var sumOfPower = function (nums) {
     s = (2 * s + x) % MOD
   }
   return ans % MOD
+}
+```
+
+[822. 翻转卡片游戏](https://leetcode.cn/problems/card-flipping-game/)
+
+```js
+/**
+ * @param {number[]} fronts
+ * @param {number[]} backs
+ * @return {number}
+ */
+var flipgame = function (fronts, backs) {
+  const n = fronts.length
+  const set = new Set()
+  for (let i = 0; i < n; i++) {
+    if (fronts[i] == backs[i]) set.add(fronts[i])
+  }
+  let ans = Infinity
+  for (let i = 0; i < n; i++) {
+    if (!set.has(fronts[i])) ans = Math.min(ans, fronts[i])
+    if (!set.has(backs[i])) ans = Math.min(ans, backs[i])
+  }
+  return ans == Infinity ? 0 : ans
 }
 ```
 
