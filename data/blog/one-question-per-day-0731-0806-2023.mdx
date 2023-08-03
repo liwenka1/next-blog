@@ -3,7 +3,7 @@ title: 0731-0805 每日一题
 date: '2023-07-31'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏'
+summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -100,6 +100,45 @@ var flipgame = function (fronts, backs) {
     if (!set.has(backs[i])) ans = Math.min(ans, backs[i])
   }
   return ans == Infinity ? 0 : ans
+}
+```
+
+[722. 删除注释](https://leetcode.cn/problems/remove-comments/)
+
+```js
+/**
+ * @param {string[]} source
+ * @return {string[]}
+ */
+var removeComments = function (source) {
+  let isBlock = false
+  const ans = []
+  let str = ''
+  for (let s of source) {
+    const n = s.length
+    for (let i = 0; i < n; i++) {
+      if (isBlock) {
+        if (i + 1 < n && s[i] == '*' && s[i + 1] == '/') {
+          isBlock = false
+          i++
+        }
+      } else {
+        if (i + 1 < n && s[i] == '/' && s[i + 1] == '/') {
+          break
+        } else if (i + 1 < n && s[i] == '/' && s[i + 1] == '*') {
+          isBlock = true
+          i++
+        } else {
+          str += s[i]
+        }
+      }
+    }
+    if (!isBlock && str.length) {
+      ans.push(str)
+      str = ''
+    }
+  }
+  return ans
 }
 ```
 
