@@ -3,7 +3,7 @@ title: 0731-0805 每日一题
 date: '2023-07-31'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释'
+summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释 5.980. 不同路径 III'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -138,6 +138,58 @@ var removeComments = function (source) {
       str = ''
     }
   }
+  return ans
+}
+```
+
+[980. 不同路径 III](https://leetcode.cn/problems/unique-paths-iii/)
+
+```js
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var uniquePathsIII = function (grid) {
+  const m = grid.length
+  const n = grid[0].length
+  const step = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1, 0]
+  ]
+  let ans = 0
+  const dfs = (i, j, cnt) => {
+    if (grid[i][j] == 2) {
+      if (cnt == 0) ans++
+      return
+    }
+    grid[i][j] = -1
+    for (let [x, y] of step) {
+      if (
+        i + x >= 0 &&
+        i + x < m &&
+        j + y >= 0 &&
+        j + y < n &&
+        grid[i + x][j + y] >= 0
+      )
+        dfs(i + x, j + y, cnt - 1)
+    }
+    grid[i][j] = 0
+  }
+  let starti = (startj = -1)
+  let cnt = 1
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] == 1) {
+        starti = i
+        startj = j
+      } else if (grid[i][j] == 0) {
+        cnt++
+      }
+    }
+  }
+  dfs(starti, startj, cnt)
   return ans
 }
 ```
