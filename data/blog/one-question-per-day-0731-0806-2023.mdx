@@ -3,7 +3,7 @@ title: 0731-0805 每日一题
 date: '2023-07-31'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释 5.980. 不同路径 III'
+summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释 5.980. 不同路径 III 6.21. 合并两个有序链表'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -191,6 +191,43 @@ var uniquePathsIII = function (grid) {
   }
   dfs(starti, startj, cnt)
   return ans
+}
+```
+
+[21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function (list1, list2) {
+  if (list1 == null) return list2
+  if (list2 == null) return list1
+  const cur = new ListNode()
+  let pre = cur
+  while (list1 != null && list2 != null) {
+    const n1 = list1.val
+    const n2 = list2.val
+    if (n1 < n2) {
+      pre.next = list1
+      list1 = list1.next
+    } else {
+      pre.next = list2
+      list2 = list2.next
+    }
+    pre = pre.next
+  }
+  pre.next = list1 == null ? list2 : list1
+  return cur.next
 }
 ```
 
