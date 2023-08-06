@@ -3,7 +3,7 @@ title: 0731-0805 每日一题
 date: '2023-07-31'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释 5.980. 不同路径 III 6.21. 合并两个有序链表'
+summary: '1.143. 重排链表 2.2681. 英雄的力量 3.822. 翻转卡片游戏 4.722. 删除注释 5.980. 不同路径 III 6.21. 合并两个有序链表 7.24. 两两交换链表中的节点'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -228,6 +228,31 @@ var mergeTwoLists = function (list1, list2) {
   }
   pre.next = list1 == null ? list2 : list1
   return cur.next
+}
+```
+
+[24. 两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function (head) {
+  if (head == null || head.next == null) return head
+  const one = head
+  const two = head.next
+  const three = head.next.next
+  two.next = one
+  one.next = swapPairs(three)
+  return two
 }
 ```
 
