@@ -57,7 +57,29 @@ const gcd = (a, b) => {
 [2808. 使循环数组所有元素相等的最少秒数](https://leetcode.cn/problems/minimum-seconds-to-equalize-a-circular-array/)
 
 ```js
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minimumSeconds = function (nums) {
+  const n = nums.length
+  const map = new Map()
+  let ans = Infinity
+  for (let i = 0; i < n; i++) {
+    if (!map.has(nums[i])) map.set(nums[i], [])
+    map.get(nums[i]).push(i)
+  }
+  for (let value of map.values()) {
+    value.push(value[0] + n)
+    let max = -Infinity
+    const m = value.length
+    for (let i = 1; i < m; i++) {
+      max = Math.max(Math.floor((value[i] - value[i - 1]) / 2), max)
+    }
+    ans = Math.min(ans, max)
+  }
+  return ans
+}
 ```
 
 [6987. 使数组和小于等于 x 的最少时间](https://leetcode.cn/problems/minimum-time-to-make-array-sum-at-most-x/)
