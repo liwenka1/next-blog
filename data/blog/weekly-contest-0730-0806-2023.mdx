@@ -1,0 +1,69 @@
+---
+title: 0730-0806 周赛
+date: '2023-08-06'
+tags: ['算法', '周赛', 'LeetCode']
+draft: false
+summary: '1.第 110 场双周赛'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 第 110 场双周赛
+
+---
+
+[2806. 取整购买后的账户余额](https://leetcode.cn/problems/account-balance-after-rounded-purchase/)
+
+```js
+/**
+ * @param {number} purchaseAmount
+ * @return {number}
+ */
+var accountBalanceAfterPurchase = function (purchaseAmount) {
+  return 100 - Math.round(purchaseAmount / 10) * 10
+}
+```
+
+[6940. 在链表中插入最大公约数](https://leetcode.cn/problems/insert-greatest-common-divisors-in-linked-list/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var insertGreatestCommonDivisors = function (head) {
+  if (head == null || head.next == null) return head
+  let pre = head
+  while (pre.next) {
+    pre.next = new ListNode(gcd(pre.val, pre.next.val), pre.next)
+    pre = pre.next.next
+  }
+  return head
+}
+
+const gcd = (a, b) => {
+  if (b === 0) return a
+  return gcd(b, a % b)
+}
+```
+
+[2808. 使循环数组所有元素相等的最少秒数](https://leetcode.cn/problems/minimum-seconds-to-equalize-a-circular-array/)
+
+```js
+
+```
+
+[6987. 使数组和小于等于 x 的最少时间](https://leetcode.cn/problems/minimum-time-to-make-array-sum-at-most-x/)
+
+```js
+
+```
+
+---
