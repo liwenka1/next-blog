@@ -3,7 +3,7 @@ title: 0807-0813 每日一题
 date: '2023-08-07'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表'
+summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -22,6 +22,42 @@ var reverseString = function (s) {
   for (let i = 0; i < n / 2; i++) {
     ;[s[i], s[n - 1 - i]] = [s[n - 1 - i], s[i]]
   }
+}
+```
+
+[1749. 任意子数组和的绝对值的最大值](https://leetcode.cn/problems/maximum-absolute-sum-of-any-subarray/description/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxAbsoluteSum = function (nums) {
+  let ans = 0,
+    max = 0,
+    min = 0
+  for (let num of nums) {
+    max = Math.max(0, max) + num
+    min = Math.min(0, min) + num
+    ans = Math.max(ans, max, -min)
+  }
+  return ans
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxAbsoluteSum = function (nums) {
+  let s = 0,
+    max = 0,
+    min = 0
+  for (let num of nums) {
+    s += num
+    max = Math.max(max, s)
+    min = Math.min(min, s)
+  }
+  return max - min
 }
 ```
 
