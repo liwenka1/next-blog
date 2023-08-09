@@ -3,7 +3,7 @@ title: 0807-0813 每日一题
 date: '2023-08-07'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值'
+summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -58,6 +58,28 @@ var maxAbsoluteSum = function (nums) {
     min = Math.min(min, s)
   }
   return max - min
+}
+```
+
+[1281. 整数的各位积和之差](https://leetcode.cn/problems/subtract-the-product-and-sum-of-digits-of-an-integer/)
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var subtractProductAndSum = function (n) {
+  n = n
+    .toString()
+    .split('')
+    .map((i) => Number(i))
+  let sum = 0
+  let pdt = 1
+  for (let i of n) {
+    sum += i
+    pdt *= i
+  }
+  return pdt - sum
 }
 ```
 
