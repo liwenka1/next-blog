@@ -3,7 +3,7 @@ title: 0807-0813 每日一题
 date: '2023-08-07'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差'
+summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差 4.1289. 下降路径最小和  II'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -80,6 +80,30 @@ var subtractProductAndSum = function (n) {
     pdt *= i
   }
   return pdt - sum
+}
+```
+
+[1289. 下降路径最小和 II](https://leetcode.cn/problems/minimum-falling-path-sum-ii/)
+
+```js
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minFallingPathSum = function (grid) {
+  const n = grid.length
+  const dp = new Array(n).fill([]).map(() => new Array(n).fill(Infinity))
+  for (let i = 0; i < n; i++) {
+    dp[0][i] = grid[0][i]
+  }
+  for (let i = 1; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      for (let k = 0; k < n; k++) {
+        if (k != j) dp[i][j] = Math.min(dp[i][j], grid[i][j] + dp[i - 1][k])
+      }
+    }
+  }
+  return Math.min(...dp[n - 1])
 }
 ```
 
