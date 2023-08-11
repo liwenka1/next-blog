@@ -3,7 +3,7 @@ title: 0807-0813 每日一题
 date: '2023-08-07'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差 4.1289. 下降路径最小和  II'
+summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差 4.1289. 下降路径最小和  II 5.1572. 矩阵对角线元素的和'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -104,6 +104,24 @@ var minFallingPathSum = function (grid) {
     }
   }
   return Math.min(...dp[n - 1])
+}
+```
+
+[1572. 矩阵对角线元素的和](https://leetcode.cn/problems/matrix-diagonal-sum/description/)
+
+```js
+/**
+ * @param {number[][]} mat
+ * @return {number}
+ */
+var diagonalSum = function (mat) {
+  const n = mat.length
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    if (i == n - 1 - i) ans += mat[i][i]
+    else ans += mat[i][i] + mat[i][n - 1 - i]
+  }
+  return ans
 }
 ```
 
