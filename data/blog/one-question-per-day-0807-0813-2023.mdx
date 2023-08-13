@@ -3,7 +3,7 @@ title: 0807-0813 每日一题
 date: '2023-08-07'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差 4.1289. 下降路径最小和  II 5.1572. 矩阵对角线元素的和 6.23. 合并 K 个升序链表'
+summary: '1.143. 重排链表 2.1749. 任意子数组和的绝对值的最大值 3.1281. 整数的各位积和之差 4.1289. 下降路径最小和  II 5.1572. 矩阵对角线元素的和 6.23. 合并 K 个升序链表 7.88. 合并两个有序数组'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -129,6 +129,27 @@ var diagonalSum = function (mat) {
 
 ```js
 
+```
+
+[88. 合并两个有序数组](https://leetcode.cn/problems/merge-k-sorted-lists/description/)
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+  let end = m + n - 1
+  while (m - 1 >= 0 || n - 1 >= 0) {
+    if (m - 1 < 0) nums1[end--] = nums2[n-- - 1]
+    else if (n - 1 < 0) break
+    else if (nums1[m - 1] < nums2[n - 1]) nums1[end--] = nums2[n-- - 1]
+    else nums1[end--] = nums1[m-- - 1]
+  }
+}
 ```
 
 ---
