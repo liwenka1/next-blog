@@ -3,7 +3,7 @@ title: 0814-0820 每日一题
 date: '2023-08-14'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.617. 合并二叉树 2.833. 字符串中的查找与替换'
+summary: '1.617. 合并二叉树 2.833. 字符串中的查找与替换 3.2682. 找出转圈游戏输家'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -59,6 +59,29 @@ var findReplaceString = function (s, indices, sources, targets) {
         i += len - 1
       } else ans += s[i]
     } else ans += s[i]
+  }
+  return ans
+}
+```
+
+[2682. 找出转圈游戏输家](https://leetcode.cn/problems/find-the-losers-of-the-circular-game/description/)
+
+```js
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[]}
+ */
+var circularGameLosers = function (n, k) {
+  if (n == 1) return []
+  const cnt = new Array(n).fill(0)
+  for (let i = 1, j = 1; i <= n; i = (i + j * k) % n, j++) {
+    cnt[(i - 1 + n) % n]++
+    if (cnt[(i - 1 + n) % n] == 2) break
+  }
+  const ans = []
+  for (let i = 1; i < n; i++) {
+    if (cnt[i] == 0) ans.push(i + 1)
   }
   return ans
 }
