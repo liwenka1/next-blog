@@ -1,0 +1,78 @@
+---
+title: 0814-0820 周赛
+date: '2023-08-19'
+tags: ['算法', '周赛', 'LeetCode']
+draft: false
+summary: '1.第 358 场周赛'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+### 第 358 场周赛
+
+---
+
+[2815. 数组中的最大数对和](https://leetcode.cn/problems/max-pair-sum-in-an-array/)
+
+```java
+class Solution {
+    public int maxSum(int[] nums) {
+        int[] max_v = new int[10];
+        Arrays.fill(max_v, Integer.MIN_VALUE);
+        int ans = -1;
+        for(int num : nums){
+            int max_D = 0;
+            for(int x = num; x > 0; x /= 10){
+                max_D = Math.max(max_D, x % 10);
+            }
+            ans = Math.max(ans, num + max_v[max_D]);
+            max_v[max_D] = Math.max(max_v[max_D], num);
+        }
+        return ans;
+    }
+}
+```
+
+[2816. 翻倍以链表形式表示的数字](https://leetcode.cn/problems/double-a-number-represented-as-a-linked-list/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var doubleIt = function (head) {
+  if (head.val >= 5) {
+    head = new ListNode(0, head)
+  }
+  let cur = head
+  while (cur) {
+    cur.val = (cur.val * 2) % 10
+    if (cur.next && cur.next.val >= 5) {
+      cur.val++
+    }
+    cur = cur.next
+  }
+  return head
+}
+```
+
+[2817. 限制条件下元素之间的最小绝对差](https://leetcode.cn/problems/minimum-absolute-difference-between-elements-with-constraint/)
+
+```js
+
+```
+
+[2818. 操作使得分最大](https://leetcode.cn/problems/apply-operations-to-maximize-score/)
+
+```js
+
+```
+
+---
