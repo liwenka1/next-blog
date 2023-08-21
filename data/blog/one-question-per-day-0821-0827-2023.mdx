@@ -1,0 +1,41 @@
+---
+title: 0814-0820 每日一题
+date: '2023-08-14'
+tags: ['算法', '每日一题', 'LeetCode']
+draft: false
+summary: '1.2337. 移动片段得到字符串'
+layout: PostSimple
+bibliography: references-data.bib
+---
+
+---
+
+[2337. 移动片段得到字符串](https://leetcode.cn/problems/move-pieces-to-obtain-a-string/description/)
+
+```java
+class Solution {
+    public boolean canChange(String start, String target) {
+        if (!String.join("", start.split("_")).equals(String.join("", target.split("_"))))
+            return false;
+        int i = 0;
+        int j = 0;
+        while (i < start.length()) {
+            if (start.charAt(i) == '_') {
+                i++;
+                continue;
+            }
+            if (target.charAt(j) == '_') {
+                j++;
+                continue;
+            }
+            if (start.charAt(i) != target.charAt(j) || start.charAt(i) == 'L' && i < j || start.charAt(i) == 'R' && i > j)
+                return false;
+            i++;
+            j++;
+        }
+        return true;
+    }
+}
+```
+
+---
