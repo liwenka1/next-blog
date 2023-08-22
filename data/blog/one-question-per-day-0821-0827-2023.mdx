@@ -3,7 +3,7 @@ title: 0814-0820 每日一题
 date: '2023-08-14'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.2337. 移动片段得到字符串'
+summary: '1.2337. 移动片段得到字符串 2.849. 到最近的人的最大距离'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -34,6 +34,31 @@ class Solution {
             j++;
         }
         return true;
+    }
+}
+```
+
+[849. 到最近的人的最大距离](https://leetcode.cn/problems/maximize-distance-to-closest-person/description/)
+
+```java
+class Solution {
+    public int maxDistToClosest(int[] seats) {
+        int start = 0;
+        int n = seats.length;
+        for (int i = 0; i < n; i++) {
+            if (seats[i] == 1) {
+                start = i;
+                break;
+            }
+        }
+        int ans = start;
+        for (int i = start + 1; i < n; i++) {
+            if (seats[i] == 1) {
+                ans = Math.max(ans, (i - start) / 2);
+                start = i;
+            }
+        }
+        return Math.max(ans, n - 1 - start);
     }
 }
 ```
