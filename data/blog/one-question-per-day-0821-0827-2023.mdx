@@ -3,7 +3,7 @@ title: 0814-0820 每日一题
 date: '2023-08-14'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.2337. 移动片段得到字符串 2.849. 到最近的人的最大距离 3.1782. 统计点对的数目 4.1267. 统计参与通信的服务器'
+summary: '1.2337. 移动片段得到字符串 2.849. 到最近的人的最大距离 3.1782. 统计点对的数目 4.1267. 统计参与通信的服务器 5.1448. 统计二叉树中好节点的数目'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -95,6 +95,38 @@ class Solution {
             }
         }
         return ans;
+    }
+}
+```
+
+[1448. 统计二叉树中好节点的数目](https://leetcode.cn/problems/count-good-nodes-in-binary-tree/description/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int goodNodes(TreeNode root) {
+        return dfs(root, root.val);
+    }
+
+    public int dfs(TreeNode root, int max) {
+        if (root == null) return 0;
+        int left = dfs(root.left, Math.max(max, root.val));
+        int right = dfs(root.right, Math.max(max, root.val));
+        return left + right + (max <= root.val ? 1 : 0);
     }
 }
 ```
