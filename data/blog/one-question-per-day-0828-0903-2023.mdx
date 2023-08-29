@@ -75,6 +75,38 @@ var numFactoredBinaryTrees = function (arr) {
   }
   return ans % MOD
 }
+
+class Solution {
+    public int numFactoredBinaryTrees(int[] arr) {
+        final long MOD = (long) 1e9 + 7;
+        int n = arr.length;
+        Arrays.sort(arr);
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            map.put(arr[i], i);
+        }
+        long[] memo = new long[n];
+        Arrays.fill(memo, -1);
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans += dfs(i, arr, memo, map) % MOD;
+        }
+        return (int) (ans % MOD);
+    }
+
+    private long dfs(int i, int[] arr, long[] memo, Map<Integer, Integer> map) {
+        if (memo[i] != -1) return memo[i];
+        long res = 1;
+        int val = arr[i];
+        for (int j = 0; j < i; j++) {
+            int x = arr[j];
+            if (val % x == 0 && map.containsKey(val / x)) {
+                res += dfs(j, arr, memo, map) * dfs(map.get(val / x), arr, memo, map);
+            }
+        }
+        return memo[i] = res;
+    }
+}
 ```
 
 ---
