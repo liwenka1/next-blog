@@ -3,7 +3,7 @@ title: 0828-0903 每日一题
 date: '2023-08-28'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.57. 插入区间'
+summary: '1.57. 插入区间 2.823. 带因子的二叉树'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -38,6 +38,42 @@ class Solution {
         }
         return  ans.toArray(new int[ans.size()][]);
     }
+}
+```
+
+[823. 带因子的二叉树](https://leetcode.cn/problems/binary-trees-with-factors/description/)
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var numFactoredBinaryTrees = function (arr) {
+  const MOD = 1e9 + 7
+  const n = arr.length
+  arr.sort((a, b) => a - b)
+  const map = new Map()
+  for (let i = 0; i < n; i++) {
+    map.set(arr[i], i)
+  }
+  const memo = new Array(n).fill(-1)
+  const dfs = (i) => {
+    if (memo[i] != -1) return memo[i]
+    let res = 1
+    const val = arr[i]
+    for (let j = 0; j < i; j++) {
+      const x = arr[j]
+      if (val % x == 0 && map.has(val / x)) {
+        res += dfs(j) * dfs(map.get(val / x))
+      }
+    }
+    return (memo[i] = res % MOD)
+  }
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    ans += dfs(i)
+  }
+  return ans % MOD
 }
 ```
 
