@@ -3,7 +3,7 @@ title: 0904-0910 每日一题
 date: '2023-09-04'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.449. 序列化和反序列化二叉搜索树'
+summary: '1.449. 序列化和反序列化二叉搜索树 2.2605. 从两个数字数组里生成最小数字'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -14,6 +14,25 @@ bibliography: references-data.bib
 
 ```js
 
+```
+
+[2605. 从两个数字数组里生成最小数字](https://leetcode.cn/problems/form-smallest-number-from-two-digit-arrays/description/)
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var minNumber = function (nums1, nums2) {
+  nums1.sort((a, b) => a - b)
+  const set = new Set(nums2)
+  for (const x of nums1) {
+    if (set.has(x)) return x
+  }
+  const min = Math.min(...nums2)
+  return Math.min(min * 10 + nums1[0], nums1[0] * 10 + min)
+}
 ```
 
 ---
