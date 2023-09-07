@@ -3,7 +3,7 @@ title: 0904-0910 每日一题
 date: '2023-09-04'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.449. 序列化和反序列化二叉搜索树 2.2605. 从两个数字数组里生成最小数字 3.1123. 最深叶节点的最近公共祖先'
+summary: '1.449. 序列化和反序列化二叉搜索树 2.2605. 从两个数字数组里生成最小数字 3.1123. 最深叶节点的最近公共祖先 4.2594. 修车的最少时间'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -67,6 +67,36 @@ var lcaDeepestLeaves = function (root) {
   }
   dfs(root, 0)
   return ans
+}
+```
+
+[2594. 修车的最少时间](https://leetcode.cn/problems/minimum-time-to-repair-cars/description/)
+
+```js
+/**
+ * @param {number[]} ranks
+ * @param {number} cars
+ * @return {number}
+ */
+var repairCars = function (ranks, cars) {
+  let left = 0
+  let right = ranks[0] * cars * cars
+  const check = (mid) => {
+    let sum = 0
+    for (const rank of ranks) {
+      sum += Math.floor(Math.sqrt(mid / rank))
+    }
+    return sum >= cars
+  }
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2)
+    if (check(mid)) {
+      right = mid
+    } else {
+      left = mid + 1
+    }
+  }
+  return left
 }
 ```
 
