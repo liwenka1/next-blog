@@ -3,7 +3,7 @@ title: 0911-0917 每日一题
 date: '2023-09-11'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.630. 课程表 III 2.1462. 课程表 IV'
+summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -20,6 +20,44 @@ bibliography: references-data.bib
 
 ```js
 
+```
+
+[2596. 检查骑士巡视方案](https://leetcode.cn/problems/check-knight-tour-configuration/description/)
+
+```js
+/**
+ * @param {number[][]} grid
+ * @return {boolean}
+ */
+var checkValidGrid = function (grid) {
+  const n = grid.length
+  const end = n * n - 1
+  const step = [
+    [2, 1],
+    [1, 2],
+    [-2, -1],
+    [-1, -2],
+    [-2, 1],
+    [-1, 2],
+    [2, -1],
+    [1, -2]
+  ]
+  const dfs = (x, y) => {
+    if (grid[x][y] == end) return true
+    for (const [i, j] of step) {
+      if (i + x >= 0 && i + x < n && j + y >= 0 && j + y < n) {
+        if (grid[i + x][j + y] == grid[x][y] + 1) {
+          if (dfs(i + x, j + y)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
+  }
+  if (grid[0][0] != 0) return false
+  else return dfs(0, 0)
+}
 ```
 
 ---
