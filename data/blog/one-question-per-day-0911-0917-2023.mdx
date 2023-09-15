@@ -3,7 +3,7 @@ title: 0911-0917 每日一题
 date: '2023-09-11'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案 4.1222. 可以攻击国王的皇后'
+summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案 4.1222. 可以攻击国王的皇后 5.LCP 50. 宝石补给'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -93,6 +93,24 @@ var queensAttacktheKing = function (queens, king) {
     }
   }
   return ans
+}
+```
+
+[LCP 50. 宝石补给](https://leetcode.cn/problems/WHnhjV/description/)
+
+```js
+/**
+ * @param {number[]} gem
+ * @param {number[][]} operations
+ * @return {number}
+ */
+var giveGem = function (gem, operations) {
+  for (const [i, j] of operations) {
+    const x = Math.floor(gem[i] / 2)
+    gem[j] += x
+    gem[i] -= x
+  }
+  return Math.max(...gem) - Math.min(...gem)
 }
 ```
 
