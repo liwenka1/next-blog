@@ -3,7 +3,7 @@ title: 0911-0917 每日一题
 date: '2023-09-11'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案 4.1222. 可以攻击国王的皇后 5.LCP 50. 宝石补给'
+summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案 4.1222. 可以攻击国王的皇后 5.LCP 50. 宝石补给 6.198. 打家劫舍'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -111,6 +111,22 @@ var giveGem = function (gem, operations) {
     gem[i] -= x
   }
   return Math.max(...gem) - Math.min(...gem)
+}
+```
+
+[198. 打家劫舍](https://leetcode.cn/problems/house-robber/description/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+  let f0 = (f1 = 0)
+  for (const num of nums) {
+    ;[f0, f1] = [f1, Math.max(f0 + num, f1)]
+  }
+  return f1
 }
 ```
 
