@@ -1,9 +1,9 @@
 ---
-title: 0911-0917 每日一题
+title: 0911-0931 每日一题
 date: '2023-09-11'
 tags: ['算法', '每日一题', 'LeetCode']
 draft: false
-summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案 4.1222. 可以攻击国王的皇后 5.LCP 50. 宝石补给 6.198. 打家劫舍'
+summary: '1.630. 课程表 III 2.1462. 课程表 IV 3.2596. 检查骑士巡视方案 4.1222. 可以攻击国王的皇后 5.LCP 50. 宝石补给 6.198. 打家劫舍 7.2582. 递枕头'
 layout: PostSimple
 bibliography: references-data.bib
 ---
@@ -127,6 +127,21 @@ var rob = function (nums) {
     ;[f0, f1] = [f1, Math.max(f0 + num, f1)]
   }
   return f1
+}
+```
+
+[2582. 递枕头](https://leetcode.cn/problems/pass-the-pillow/description/)
+
+```js
+/**
+ * @param {number} n
+ * @param {number} time
+ * @return {number}
+ */
+var passThePillow = function (n, time) {
+  return Math.floor(time / (n - 1)) % 2 === 0
+    ? 1 + (time % (n - 1))
+    : n - (time % (n - 1))
 }
 ```
 
